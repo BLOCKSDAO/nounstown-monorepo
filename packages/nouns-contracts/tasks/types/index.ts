@@ -10,6 +10,8 @@ export enum ChainId {
 // prettier-ignore
 export type ContractName = 'NFTDescriptor' | 'NounsDescriptor' | 'NounsSeeder' | 'NounsToken' | 'NounsAuctionHouse' | 'NounsAuctionHouseProxyAdmin' | 'NounsAuctionHouseProxy' | 'NounsDAOExecutor' | 'NounsDAOLogicV1' | 'NounsDAOProxy';
 
+export type ContractNameDeployed = 'NFTDescriptor' | 'NounsDescriptorDeployed' | 'NounsSeeder' | 'NounsToken' | 'NounsAuctionHouse' | 'NounsAuctionHouseProxyAdmin' | 'NounsAuctionHouseProxy' | 'NounsDAOExecutor' | 'NounsDAOLogicV1' | 'NounsDAOProxy';
+
 export interface ContractDeployment {
   args?: (string | number | (() => string))[];
   libraries?: () => Record<string, string>;

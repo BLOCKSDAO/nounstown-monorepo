@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 
-/// @title The Nouns ERC-721 token
+/// @title The NounsTown ERC-721 token
 
 /*********************************
  * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
@@ -14,6 +14,26 @@
  * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
  * ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ *
  *********************************/
+
+/*
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNOxkxONMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMNXKKKKKKKKKKXXNMWNXKKKKXNMMMMMMMMWNOl'..;. 'lkXWMMMMMMWNXXKXKKXKKKXWMWNXKKKKXNMWXKKKKXNMWXKKKKXXXKKXNWMMMMMMMM
+MMMMMMMWx.......'.....,dKl......dWMMMMWXkl'    .;.    'ckXWMMKl'....''.....;kKc.....'xWk,....:Ox;.....''....'oXMMMMMMM
+MMMMMMMWo      ':.     'x;      lNMMMKl.       .;.       .cdOo      ':.     'x,      oO,    .xO'     .:'     .dWMMMMMM
+MMMMMMMWo      ,c.     'x;      lNMMWd         .:.         .ll      ,c.     'd,      ::    .xWO.     .c,      dWMMMMMM
+MMMMMMMWo      ,c.     ;k;      lNMMWo         .:.         .cl      ,c.     'd;      .    .dWM0,     .:c,,,,:oKMMMMMMM
+MMMMMMMWo      .'     ;OK;      cXWWWo       ..,;,..       .cl      ,xocccccxO,          .oNMMWOc,'''',......cKMMMMMMM
+MMMMMMMWo      .;.    .cO;      .,,;xl    ..''.   .''..    .cc      ,dc,,,,,lk,           lNMMKc,'''':o'     .dWMMMMMM
+MMMMMMMWo      ,c.     'x:          cl..'''.         ..''...lc      ,c.     'd;      .    .oNMO.     .c,      dWMMMMMM
+MMMMMMMWo      ,c.     'x:          cOl,.               .'cdOl      ,c.     'd;      cc    .oNO.     .c,      dWMMMMMM
+MMMMMMMWo      ';.     ,k:          lNXxc.             .:xXWWd.     ';.     ,x;      o0;    .dO'     .:.     .xWMMMMMM
+MMMMMMMWx,''''',,'''',cOXo''''''''',xWMMWXkl'       'ckXWMMMMXd;,''',,'''',cOKo''''',kWO:''''cOOc,'''',,''',:dXMMMMMMM
+MMMMMMMMWNNNNNNNNNNNNWWMMWNNNNNNNNNNWMMMMMMMNOo,.,lONMMMMMMMMMMWWNNNNNNNNNWWMMWNNNNNNWMMWNNNNNWMWWNNNNNNNNNWWMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNXNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+*/
 
 pragma solidity ^0.8.6;
 
@@ -106,7 +126,7 @@ contract NounsToken is INounsToken, Ownable, ERC721Checkpointable {
         INounsDescriptor _descriptor,
         INounsSeeder _seeder,
         IProxyRegistry _proxyRegistry
-    ) ERC721('Nouns', 'NOUN') {
+    ) ERC721('NounsTown', 'NOUNSTOWN') {
         noundersDAO = _noundersDAO;
         minter = _minter;
         descriptor = _descriptor;
@@ -142,12 +162,12 @@ contract NounsToken is INounsToken, Ownable, ERC721Checkpointable {
 
     /**
      * @notice Mint a Noun to the minter, along with a possible nounders reward
-     * Noun. Nounders reward Nouns are minted every 10 Nouns, starting at 0,
-     * until 183 nounder Nouns have been minted (5 years w/ 24 hour auctions).
+     * Noun. Nounders reward Nouns are minted every 16 Nouns, starting at 0,
+     * until 365 nounder Nouns have been minted (4 years w/ 6 hour auctions).
      * @dev Call _mintTo with the to address(es).
      */
     function mint() public override onlyMinter returns (uint256) {
-        if (_currentNounId <= 1820 && _currentNounId % 10 == 0) {
+        if (_currentNounId <= 5840 && _currentNounId % 16 == 0) {
             _mintTo(noundersDAO, _currentNounId++);
         }
         return _mintTo(minter, _currentNounId++);
