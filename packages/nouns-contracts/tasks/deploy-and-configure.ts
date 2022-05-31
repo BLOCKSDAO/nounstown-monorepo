@@ -1,10 +1,23 @@
 import { task } from 'hardhat/config';
-import { DeployedContract } from './types';
+import { ChainId, DeployedContract } from './types';
 
 interface ContractRow {
   Address: string;
   'Deployment Hash'?: string;
 }
+
+const nounsDescriptorDeployed: Record<number, string> = {
+  [ChainId.Mainnet]: '0x0Cfdb3Ba1694c2bb2CFACB0339ad7b1Ae5932B63',
+  [ChainId.Rinkeby]: '0x53cB482c73655D2287AE3282AD1395F82e6a402F',
+};
+
+//yarn task:deploy-and-configure --network [network] --auto-deploy --start-auction --update-configs
+//yarn task:deploy-and-configure --network rinkeby --start-auction --update-configs //1 HOUR
+//yarn task:deploy-and-configure --network mainnet --start-auction --update-configs //6 HOUR
+
+//use NounsDescriptorDeployed 
+//await descriptorContract.setDeployedDescriptor(nounsDescriptorDeployed);
+
 
 task('deploy-and-configure', 'Deploy and configure all contracts')
   .addFlag('startAuction', 'Start the first auction upon deployment completion')
@@ -24,7 +37,12 @@ task('deploy-and-configure', 'Deploy and configure all contracts')
   .addOptionalParam('votingDelay', 'The voting delay (blocks)')
   .addOptionalParam('proposalThresholdBps', 'The proposal threshold (basis points)')
   .addOptionalParam('quorumVotesBps', 'Votes required for quorum (basis points)')
-  .setAction(async (args, { run }) => {
+  .setAction(async (args, { ethers, run }) => {
+
+    const networkTemp = await ethers.provider.getNetwork();
+    console.log('network', networkTemp);
+    //return;
+
     // Deploy the Nouns DAO contracts and return deployment information
     const contracts = await run('deploy', args);
 
@@ -32,11 +50,15 @@ task('deploy-and-configure', 'Deploy and configure all contracts')
     await run('verify-etherscan', {
       contracts,
     });
-
+    
+    const currentNetwork = await ethers.provider.getNetwork();
+    const deployedDescriptorContract = nounsDescriptorDeployed[currentNetwork.chainId];
+    
     // Populate the on-chain art
     await run('populate-descriptor', {
       nftDescriptor: contracts.NFTDescriptor.address,
       nounsDescriptor: contracts.NounsDescriptor.address,
+      nounsDescriptorDeployed: deployedDescriptorContract,
     });
 
     // Transfer ownership of all contract except for the auction house.

@@ -8,13 +8,46 @@ task(
   await run(TASK_COMPILE);
 
   await Promise.race([run(TASK_NODE), new Promise(resolve => setTimeout(resolve, 2_000))]);
-
+  
+  console.log('Running Deployed set');
+  const contractsDeployed = await run('deploy-local-mock-deployed');
+ console.log('deploy local Deployed');
+  await run('populate-descriptor-mock-deployed', {
+    nftDescriptor: contractsDeployed.NFTDescriptor.instance.address,
+    nounsDescriptor: contractsDeployed.NounsDescriptorDeployed.instance.address,
+  });
+    
+  /*
+  This is stuff that would be out there already
+  */
+  
+  console.log('Running real set');
   const contracts = await run('deploy-local');
 
   await run('populate-descriptor', {
     nftDescriptor: contracts.NFTDescriptor.instance.address,
     nounsDescriptor: contracts.NounsDescriptor.instance.address,
+    nounsDescriptorDeployed: contractsDeployed.NounsDescriptorDeployed.instance.address,
   });
+  
+  //set the auction time to 1 minute
+  //60 * 1
+
+  const duration1 = await contracts.NounsAuctionHouse.instance
+    .attach(contracts.NounsAuctionHouseProxy.instance.address)
+    .duration();
+  console.log('duration1', duration1);
+
+  await contracts.NounsAuctionHouse.instance
+    .attach(contracts.NounsAuctionHouseProxy.instance.address)
+    .setDuration(30 * 1, {
+      gasLimit: 1_000_000,
+    });
+    
+  const duration2 = await contracts.NounsAuctionHouse.instance
+    .attach(contracts.NounsAuctionHouseProxy.instance.address)
+    .duration();
+  console.log('duration2', duration2);
 
   await contracts.NounsAuctionHouse.instance
     .attach(contracts.NounsAuctionHouseProxy.instance.address)

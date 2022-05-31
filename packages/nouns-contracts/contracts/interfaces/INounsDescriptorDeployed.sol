@@ -18,16 +18,13 @@
 pragma solidity ^0.8.6;
 
 import { INounsSeeder } from './INounsSeeder.sol';
-import { INounsDescriptorDeployed } from './INounsDescriptorDeployed.sol';
 
-interface INounsDescriptor {
+interface INounsDescriptorDeployed {
     event PartsLocked();
 
     event DataURIToggled(bool enabled);
 
     event BaseURIUpdated(string baseURI);
-
-    event DescriptorUpdated(INounsDescriptorDeployed descriptor);
 
     function arePartsLocked() external returns (bool);
 
@@ -98,6 +95,4 @@ interface INounsDescriptor {
     ) external view returns (string memory);
 
     function generateSVGImage(INounsSeeder.Seed memory seed) external view returns (string memory);
-
-    function setDeployedDescriptor(INounsDescriptorDeployed descriptor) external;    
 }
