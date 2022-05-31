@@ -102,6 +102,10 @@ const Playground: React.FC = () => {
       for (let i = 0; i < amount; i++) {
         const seed = { ...getRandomNounSeed(), ...modSeed };
         const { parts, background } = getNounData(seed);
+
+		//const seedSum = (seed.body + seed.accessory + seed.head + seed.glasses);
+		//const seedMod = seedSum % 20;  
+
         const svg = buildSVG(parts, encoder.data.palette, background);
         setNounSvgs(prev => {
           return prev ? [svg, ...prev] : [svg];

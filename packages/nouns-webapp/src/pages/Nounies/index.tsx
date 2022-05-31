@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './NoundersPage.module.css';
+import classes from './NouniesPage.module.css';
 import Section from '../../layout/Section';
 import { Col } from 'react-bootstrap';
 /*
@@ -147,36 +147,26 @@ const BioCards: React.FC<{ min: number; max: number }> = props => {
         </h3>
 */
 
-const NoundersPage = () => {
+const NouniesPage = () => {
   return (
     <Section fullWidth={true} className={classes.noundersPage}>
       <Col lg={{ span: 6, offset: 3 }}>
         <h2 style={{ marginBottom: '2rem' }}>
-          <Trans>The Nouncil</Trans>
+          <Trans>Welcome Nounie!</Trans>
         </h2>
         <p style={{ textAlign: 'justify' }}>
           <Trans>
-			Nouncil is a special council of Nounish BUIDLers and NFT community leaders that seek to extend the Nouns DAO universe. Our goal is to work together within the framework of Nouns DAO, using the Nouns that have been generously delegated to us, to be a voice for the nounish states and do our part to proliferate CC0 and Nounish culture.
+            So you just won a NounsTown PFD.... Congratulations! Be sure to go over how everything works and head over to the Discord server to verify your PFD! 
+            If you were already a member of the server, you will have to leave and re-enter to have the update take effect.
+            
 			<br />
 			<br />
-			<strong>Nouncil Facts</strong>
+			<strong>ADD DISCORD CLAIM INFORMATION</strong>
 			<br />
 			<br />
-
-			<ul>			
-			<li>Founded in Feb 2022</li>
-			<li>Currently have 13 Nouns delegated to us</li>
-			<li>There are 32 Nouncillors, and we accept new applicants every month</li>
-			<li>We have voted on over 15 Nouns DAO Proposals (Noun 23 1 has our whole voting record)</li>
-			<li>We are very active in Discord and Discourse publicly discussing Nouns DAO proposals</li>
-			<li>We have Our Own Theme Song 1 by Woody</li>
-			<li>We delivered a sick POAP 2 to founding Nouncillors (art by Messhup)</li>
-			</ul>
-
-			The Nouncil receives rewards in the form of NounsTown PFDs.
-            Every 16th Noun for the first 4 years of the project will be
-            sent to the Nouncil, where it will be vested and distributed to individual
-            Nouncil members (365 total NounsTown PFDs).
+			<strong>ADD BLOCKS CLAIM INFORMATION</strong>
+			<br />
+			<br />
           </Trans>
         </p>
       </Col>
@@ -184,4 +174,4 @@ const NoundersPage = () => {
   );
 };
 
-export default NoundersPage;
+export default NouniesPage;
