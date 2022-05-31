@@ -36,7 +36,7 @@ export const buildSVG = (
   parts: { data: string }[],
   paletteColors: string[],
   bgColor: string,
-  seedSum: int,
+  seedSum: number
 ): string => {
   const svgWithoutEndTag = parts.reduce((result, part) => {
     const svgRects: string[] = [];
