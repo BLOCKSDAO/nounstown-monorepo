@@ -6,4 +6,6 @@
   min-height: 100vh;
   max-width: 100vw;
   overflow-x: hidden;
+  background: #434e43;
+  color: #a3efd0;
 }

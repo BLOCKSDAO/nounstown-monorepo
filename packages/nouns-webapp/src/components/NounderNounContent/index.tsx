@@ -34,6 +34,8 @@ const NounderNounContent: React.FC<{
   } = props;
 
   const isCool = useAppSelector(state => state.application.isCoolBackground);
+  
+  console.log('calling NounderNounContent');
 
   return (
     <AuctionActivityWrapper>
@@ -75,16 +77,11 @@ const NounderNounContent: React.FC<{
                 ` ${nounContentClasses.bidRow}`
               }
             >
-              <Trans>All Noun auction proceeds are sent to the</Trans>{' '}
-              <Link to="/vote" className={nounContentClasses.link}>
-                <Trans>Nouns DAO</Trans>
-              </Link>
-              .{' '}
               <Trans>
-                For this reason, we, the project's founders (‘Nounders’) have chosen to compensate
-                ourselves with Nouns. Every 10th Noun for the first 5 years of the project will be
-                sent to our multisig (5/10), where it will be vested and distributed to individual
-                Nounders.
+				The Nouncil receives rewards in the form of NounsTown PFDs.
+                Every 16th Noun for the first 4 years of the project will be
+                sent to the Nouncil, where it will be vested and distributed to individual
+                Nouncil members (365 total NounsTown PFDs).
               </Trans>
             </li>
           </ul>
@@ -94,7 +91,7 @@ const NounderNounContent: React.FC<{
             }
           >
             <Link
-              to="/nounders"
+              to="/nouncil"
               className={isCool ? bidBtnClasses.bidHistoryCool : bidBtnClasses.bidHistoryWarm}
             >
               <Trans>Learn more</Trans> →

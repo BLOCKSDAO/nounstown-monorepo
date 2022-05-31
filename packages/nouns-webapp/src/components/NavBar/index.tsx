@@ -1,6 +1,7 @@
 import { useAppSelector } from '../../hooks';
 import classes from './NavBar.module.css';
-import logo from '../../assets/logo.svg';
+//import logo from '../../assets/logo.svg';
+import logo from '../../assets/nouns-blocks-logo.svg';
 import { useEtherBalance } from '@usedapp/core';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -36,6 +37,7 @@ const NavBar = () => {
 
   const useStateBg =
     history.location.pathname === '/' ||
+    history.location.pathname.includes('/block/') ||
     history.location.pathname.includes('/noun/') ||
     history.location.pathname.includes('/auction/');
 
@@ -51,14 +53,14 @@ const NavBar = () => {
     <>
       <Navbar
         expand="xl"
-        style={{ backgroundColor: `${useStateBg ? stateBgColor : 'white'}` }}
+        style={{ backgroundColor: `${useStateBg ? stateBgColor : '#434e43' /*'white'*/}` }}
         className={classes.navBarCustom}
         expanded={isNavExpanded}
       >
         <Container style={{ maxWidth: 'unset' }}>
           <div className={classes.brandAndTreasuryWrapper}>
             <Navbar.Brand as={Link} to="/" className={classes.navBarBrand}>
-              <img src={logo} className={classes.navBarLogo} alt="Nouns DAO logo" />
+              <img src={logo} className={classes.navBarLogo} alt="NounsTown logo" />
             </Navbar.Brand>
             {Number(CHAIN_ID) !== 1 && (
               <Nav.Item>
@@ -66,53 +68,25 @@ const NavBar = () => {
                 TESTNET
               </Nav.Item>
             )}
-            <Nav.Item>
-              {treasuryBalance && (
-                <Nav.Link
-                  href={daoEtherscanLink}
-                  className={classes.nounsNavLink}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <NavBarTreasury
-                    treasuryBalance={Number(utils.formatEther(treasuryBalance)).toFixed(0)}
-                    treasuryStyle={nonWalletButtonStyle}
-                  />
-                </Nav.Link>
-              )}
-            </Nav.Item>
           </div>
           <Navbar.Toggle className={classes.navBarToggle} aria-controls="basic-navbar-nav" onClick={() => setIsNavExpanded(!isNavExpanded)} />
           <Navbar.Collapse className="justify-content-end">
-            <Nav.Link as={Link} to="/vote" className={classes.nounsNavLink} onClick={closeNav} >
+            <Nav.Link href={"https://nouns.wtf"} className={classes.nounsNavLink} target="_blank" onClick={closeNav} >
               <NavBarButton
-                buttonText={<Trans>DAO</Trans>}
+                buttonText={<Trans>Nouns DAO</Trans>}
                 buttonIcon={<FontAwesomeIcon icon={faUsers} />}
                 buttonStyle={nonWalletButtonStyle}
               />
             </Nav.Link>
             <Nav.Link
-              href={externalURL(ExternalURL.notion)}
+              href={'http://discord.gg/nouns'}
               className={classes.nounsNavLink}
               target="_blank"
               rel="noreferrer"
               onClick={closeNav}
             >
               <NavBarButton
-                buttonText={<Trans>Docs</Trans>}
-                buttonIcon={<FontAwesomeIcon icon={faBookOpen} />}
-                buttonStyle={nonWalletButtonStyle}
-              />
-            </Nav.Link>
-            <Nav.Link
-              href={externalURL(ExternalURL.discourse)}
-              className={classes.nounsNavLink}
-              target="_blank"
-              rel="noreferrer"
-              onClick={closeNav}
-            >
-              <NavBarButton
-                buttonText={<Trans>Discourse</Trans>}
+                buttonText={<Trans>Discord</Trans>}
                 buttonIcon={<FontAwesomeIcon icon={faComments} />}
                 buttonStyle={nonWalletButtonStyle}
               />
