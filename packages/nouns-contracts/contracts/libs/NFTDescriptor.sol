@@ -26,6 +26,7 @@ library NFTDescriptor {
         string description;
         bytes[] parts;
         string background;
+        uint256 seedSum;
     }
 
     /**
@@ -37,7 +38,7 @@ library NFTDescriptor {
         returns (string memory)
     {
         string memory image = generateSVGImage(
-            MultiPartRLEToSVG.SVGParams({ parts: params.parts, background: params.background }),
+            MultiPartRLEToSVG.SVGParams({ parts: params.parts, background: params.background, seedSum: params.seedSum }),
             palettes
         );
 
