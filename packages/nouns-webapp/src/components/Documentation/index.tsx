@@ -54,18 +54,14 @@ const Documentation = () => {
             <Trans>WTF?</Trans>
           </h1>
           <p className={classes.aboutText}>
-            <Trans>
               An expansion of the {nounsLink} DAO universe, NounsTown works to create a new layer within the Nouns ecosystem. 
 			  NownsTown PFDs (profile deeds) feature the CC0 artwork from Nouns DAO, but have the added benefit of being linked to space in the Metaverse on the {blocksLink} platform!	
 			  By expanding the ecosystem into the Metaverse, building in the open, and inviting others to participate, NounsTown aims to expose more people to Nouns 
 			  and the broader Nouns mission to bootstrap identity, community and governance.
 			  Auction proceeds are split 50/50 between the {nouncilLink}, a special council of Nounish BUIDLers & Nounish extension reps, and BLOCKS DAO.
-            </Trans>
           </p>
           <p className={classes.aboutText} style={{ paddingBottom: '4rem' }}>
-            <Trans>
               Learn more below, or start creating PFDs off-chain using the {playgroundLink}.
-            </Trans>
           </p>
         </div>
         <Accordion flush>
