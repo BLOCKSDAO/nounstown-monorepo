@@ -27,13 +27,6 @@ const Documentation = () => {
       leavesPage={true}
     />
   );
-  const cryptopunksLink = (
-    <Link
-      text={<Trans>Cryptopunks</Trans>}
-      url="https://www.larvalabs.com/cryptopunks"
-      leavesPage={true}
-    />
-  );
   const playgroundLink = (
     <Link text={<Trans>Playground</Trans>} url="/playground" leavesPage={false} />
   );
@@ -44,6 +37,7 @@ const Documentation = () => {
       leavesPage={true}
     />
   );
+  /*
   const compoundGovLink = (
     <Link
       text={<Trans>Compound Governance</Trans>}
@@ -51,6 +45,7 @@ const Documentation = () => {
       leavesPage={true}
     />
   );
+  */
   return (
     <Section fullWidth={false} className={classes.documentationSection}>
       <Col lg={{ span: 10, offset: 1 }}>

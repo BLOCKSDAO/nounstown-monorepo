@@ -1,7 +1,8 @@
 import React from 'react';
 import classes from './NoundersPage.module.css';
 import Section from '../../layout/Section';
-import { Col, Row, Card } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+/*
 import pfp4156 from '../../assets/nounder-pfps/4156.png';
 import pfp9999 from '../../assets/nounder-pfps/9999.png';
 import pfpCryptoseneca from '../../assets/nounder-pfps/cryptoseneca.png';
@@ -12,8 +13,10 @@ import pfpSolimander from '../../assets/nounder-pfps/solimander.png';
 import pfpGremplin from '../../assets/nounder-pfps/gremplin.png';
 import pfpTimpers from '../../assets/nounder-pfps/timpers.png';
 import pfpVapeape from '../../assets/nounder-pfps/vapeape.png';
+*/
 import { Trans } from '@lingui/macro';
 
+/*
 const bios = [
   {
     name: '4156',
@@ -76,7 +79,9 @@ const bios = [
     handle: 'lastpunk9999',
   },
 ];
+*/
 
+/*
 const BioCard: React.FC<{
   name: string;
   description?: string | undefined;
@@ -112,7 +117,9 @@ const BioCard: React.FC<{
     </>
   );
 };
+*/
 
+/*
 const BioCards: React.FC<{ min: number; max: number }> = props => {
   const { min, max } = props;
   return (
@@ -125,6 +132,7 @@ const BioCards: React.FC<{ min: number; max: number }> = props => {
     </>
   );
 };
+*/
 
 /*
         <h3 style={{ marginBottom: '2rem' }}>
