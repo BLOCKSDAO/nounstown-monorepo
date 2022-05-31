@@ -29,8 +29,8 @@ const getNoun = (nounId: string | EthersBN, seed: INounSeed) => {
   const { parts, background } = getNounData(seed);
   
   const seedSum = (seed.body + seed.accessory + seed.head + seed.glasses);
-  //const seedMod = seedSum % 20;  
-  //console.log('Sum, Mod, Seed data', seedSum, seedMod, seed);
+  const seedMod = seedSum % 20;  
+  console.log('Sum, Mod, Seed data', seedSum, seedMod, seed);
   //console.log('assets data', data);
   const bsvg = buildSVG(parts, data.palette, background, seedSum);
   //console.log(bsvg);

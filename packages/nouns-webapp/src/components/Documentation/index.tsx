@@ -54,18 +54,14 @@ const Documentation = () => {
             <Trans>WTF?</Trans>
           </h1>
           <p className={classes.aboutText}>
-            <Trans>
               An expansion of the {nounsLink} DAO universe, NounsTown works to create a new layer within the Nouns ecosystem. 
 			  NownsTown PFDs (profile deeds) feature the CC0 artwork from Nouns DAO, but have the added benefit of being linked to space in the Metaverse on the {blocksLink} platform!	
 			  By expanding the ecosystem into the Metaverse, building in the open, and inviting others to participate, NounsTown aims to expose more people to Nouns 
 			  and the broader Nouns mission to bootstrap identity, community and governance.
 			  Auction proceeds are split 50/50 between the {nouncilLink}, a special council of Nounish BUIDLers & Nounish extension reps, and BLOCKS DAO.
-            </Trans>
           </p>
           <p className={classes.aboutText} style={{ paddingBottom: '4rem' }}>
-            <Trans>
               Learn more below, or start creating PFDs off-chain using the {playgroundLink}.
-            </Trans>
           </p>
         </div>
         <Accordion flush>
@@ -76,7 +72,7 @@ const Documentation = () => {
             <Accordion.Body>
               <ul>
                 <li>
-                  <Trans>NounsTown PFD artwork is in the {publicDomainLink}.</Trans>
+                  NounsTown PFD artwork is in the {publicDomainLink}.
                 </li>
                 <li>
                   <Trans>One NounsTown PFD is trustlessly auctioned every 6 hours, forever.</Trans>
@@ -117,17 +113,13 @@ const Documentation = () => {
               </p>
 
               <p className={classes.aboutText}>
-                <Trans>
                   Each time an auction is settled, the settlement transaction will also cause a new
                   NounsTown PFD to be minted and a new 6 hour auction to begin.{' '}
-                </Trans>
               </p>
               <p>
-                <Trans>
                   While settlement is most heavily incentivized for the winning bidder, it can be
                   triggered by anyone, allowing the system to trustlessly auction NounsTown PFDs as long as
                   Ethereum is operational and there are interested bidders.
-                </Trans>
               </p>
             </Accordion.Body>
           </Accordion.Item>
@@ -165,11 +157,9 @@ const Documentation = () => {
               <Trans>Nouncil</Trans>
             </Accordion.Header>
             <Accordion.Body>
-              <Trans>
                 Nouncil is a special council of Nounish BUIDLers and NFT community leaders that seek to extend the Nouns DAO universe. 
                 The goal of the Nouncil is to work together within the framework of Nouns DAO, using the Nouns that have been generously delegated to the Nouncil, to be a voice for the nounish states and do their part to proliferate CC0 and Nounish culture.
                 Learn more about the {nouncilLink}.
-              </Trans>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="4" className={classes.accordionItem}>
@@ -177,10 +167,8 @@ const Documentation = () => {
               <Trans>WTF PFD?</Trans>
             </Accordion.Header>
             <Accordion.Body>
-              <Trans>
               	A PFD (Profile Deed) is a PFP (Profile Pic) that also represents a parcel of Metaverse land.
 				Each parcel of NounsTown Metaverse land will come with a PFD that acts as proof of ownership of that parcel on the BLOCKS platform. An owner of a PFD (Profile Deed) in NounsTown is a known as a Nounie ⌐◨-◨.
-              </Trans>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="5" className={classes.accordionItem}>
@@ -215,9 +203,7 @@ const Documentation = () => {
                   <Trans>Nature (6): Brave, Impish, Jolly, Quirky, Sassy, Timid</Trans>
                 </li>
               </ul>
-              <Trans>
                 You can experiment with off-chain PFD generation at the {playgroundLink}.
-              </Trans>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="6" className={classes.accordionItem}>
