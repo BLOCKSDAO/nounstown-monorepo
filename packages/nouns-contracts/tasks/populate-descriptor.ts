@@ -61,9 +61,6 @@ task('populate-descriptor', 'Populates the descriptor with color palettes and No
 	//const version1 = await descriptorContract.getVersion();
 	//console.log('main version', version1);
 
-<<<<<<< HEAD
-    console.log('Descriptor populated with palettes and parts');
-=======
 	/*
 	const bodyCount = await descriptorContract.bodyCount();
 	console.log('main body count', bodyCount);
@@ -71,5 +68,4 @@ task('populate-descriptor', 'Populates the descriptor with color palettes and No
 	const bg1 = await descriptorContract.backgrounds(0);
 	console.log('main bg 1', bg1);
 	*/
->>>>>>> 6c38a221... Contract change set deployed to Rinkeby
   });
