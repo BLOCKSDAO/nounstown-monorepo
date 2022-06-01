@@ -168,7 +168,7 @@ const Documentation = () => {
             </Accordion.Header>
             <Accordion.Body>
               	A PFD (Profile Deed) is a PFP (Profile Pic) that also represents a parcel of Metaverse land.
-				Each parcel of NounsTown Metaverse land will come with a PFD that acts as proof of ownership of that parcel on the BLOCKS platform. An owner of a PFD (Profile Deed) in NounsTown is a known as a Nounie ⌐◨-◨.
+				Each parcel of NounsTown Metaverse land will come with a PFD that acts as proof of ownership of that parcel on the BLOCKS platform.
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="5" className={classes.accordionItem}>
