@@ -28,11 +28,11 @@ const getNoun = (nounId: string | EthersBN, seed: INounSeed) => {
   const description = `NounsTown ${id} is a member of the NounsTown DAO`;
   const { parts, background } = getNounData(seed);
   
-  //const seedSum = (seed.body + seed.accessory + seed.head + seed.glasses);
+  const seedSum = (seed.body + seed.accessory + seed.head + seed.glasses);
   //const seedMod = seedSum % 20;  
   //console.log('Sum, Mod, Seed data', seedSum, seedMod, seed);
   //console.log('assets data', data);
-  const bsvg = buildSVG(parts, data.palette, background);
+  const bsvg = buildSVG(parts, data.palette, background, seedSum);
   //console.log(bsvg);
     
   const image = `data:image/svg+xml;base64,${btoa(bsvg)}`;

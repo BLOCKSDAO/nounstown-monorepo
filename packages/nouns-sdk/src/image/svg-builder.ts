@@ -85,7 +85,5 @@ export const buildSVG = (
 	}	
   }
   
-  console.log('overlay DELETE ME', overlay);
-
   return `${svgWithoutEndTag}${overlay}</svg>`;
 };
