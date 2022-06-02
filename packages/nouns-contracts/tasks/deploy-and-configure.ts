@@ -12,8 +12,8 @@ const nounsDescriptorDeployed: Record<number, string> = {
 };
 
 //yarn task:deploy-and-configure --network [network] --auto-deploy --start-auction --update-configs
-//yarn task:deploy-and-configure --network rinkeby --start-auction --update-configs //1 HOUR
-//yarn task:deploy-and-configure --network mainnet --start-auction --update-configs //6 HOUR
+//yarn task:deploy-and-configure --network rinkeby --update-configs //1 HOUR
+//yarn task:deploy-and-configure --network mainnet --update-configs //6 HOUR
 
 //use NounsDescriptorDeployed 
 //await descriptorContract.setDeployedDescriptor(nounsDescriptorDeployed);
@@ -45,11 +45,6 @@ task('deploy-and-configure', 'Deploy and configure all contracts')
 
     // Deploy the Nouns DAO contracts and return deployment information
     const contracts = await run('deploy', args);
-
-    // Verify the contracts on Etherscan
-    await run('verify-etherscan', {
-      contracts,
-    });
     
     const currentNetwork = await ethers.provider.getNetwork();
     const deployedDescriptorContract = nounsDescriptorDeployed[currentNetwork.chainId];
@@ -61,6 +56,13 @@ task('deploy-and-configure', 'Deploy and configure all contracts')
       nounsDescriptorDeployed: deployedDescriptorContract,
     });
 
+    // Verify the contracts on Etherscan
+    await run('verify-etherscan', {
+      contracts,
+    });
+
+    // Do this whole section manually post-deploy
+    /*
     // Transfer ownership of all contract except for the auction house.
     // We must maintain ownership of the auction house to kick off the first auction.
     const executorAddress = contracts.NounsDAOExecutor.address;
@@ -85,6 +87,7 @@ task('deploy-and-configure', 'Deploy and configure all contracts')
         'Started the first auction and transferred ownership of the auction house to the executor.',
       );
     }
+    */
 
     // Optionally write the deployed addresses to the SDK and subgraph configs.
     if (args.updateConfigs) {

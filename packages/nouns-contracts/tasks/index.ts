@@ -5,6 +5,7 @@ export * from './deploy-ci';
 export * from './deploy-local';
 export * from './deploy-local-mock-deployed';
 export * from './deploy-and-configure';
+export * from './post-deploy-start-auction';
 export * from './mint-noun';
 export * from './populate-descriptor';
 export * from './populate-descriptor-mock-deployed';
