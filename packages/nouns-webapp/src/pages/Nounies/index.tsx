@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './NouniesPage.module.css';
 import Section from '../../layout/Section';
-import { Col } from 'react-bootstrap';
+import { Col, Row, Button } from 'react-bootstrap';
 /*
 import pfp4156 from '../../assets/nounder-pfps/4156.png';
 import pfp9999 from '../../assets/nounder-pfps/9999.png';
@@ -152,19 +152,88 @@ const NouniesPage = () => {
     <Section fullWidth={true} className={classes.noundersPage}>
       <Col lg={{ span: 6, offset: 3 }}>
         <h2 style={{ marginBottom: '2rem' }}>
-          <Trans>Welcome Nounie!</Trans>
+          <Trans>Welcome NounsTowner!</Trans>
         </h2>
+        
+        <h3>Next Steps</h3>
+        <Row className={classes.pictureCard}>
+          <Col lg={8} className={classes.treasuryAmtWrapper}>
+            <Row>
+              <Col>
+                So you just won a NounsTown PFD.... Congratulations! Be sure to go over how everything works and head over to the Discord server to verify your PFD! 
+            If you were already a member of the server, you will have to leave and re-enter to have the update take effect.
+              </Col>
+            </Row>
+          </Col>
+
+          <Col className={classes.treasuryInfoText}>
+            <div className={classes.verifyButtonWrapper}>
+              <a href={`https://discord.gg/YWb4FRW6pS`}>
+            <Button className={classes.whiteInfo}>Head to Discord</Button>
+          </a>
+            </div>
+          </Col>
+        </Row>
+        
+        <br />
+        <br />
+                
         <p style={{ textAlign: 'justify' }}>
           <Trans>
-            So you just won a NounsTown PFD.... Congratulations! Be sure to go over how everything works and head over to the Discord server to verify your PFD! 
-            If you were already a member of the server, you will have to leave and re-enter to have the update take effect.
-            
+			<h2>Discord Information</h2>
+			<h3>Start Here</h3>
+			Basic information, major announcements, and user verification. If you just bought a NounsTown PFD, you will need to verify your ownership in the #nouns-town-verify channel to get added to the green "NounsTowner" role of the server.
+			<br />
+			<br />			
+			#nouns-town-announcements
+			<br />
+			#nouns-town-verify
 			<br />
 			<br />
-			<strong>ADD DISCORD CLAIM INFORMATION</strong>
+
+			<h3>NounsTown HQ</h3>
+			These are channels where NounsTowners can post. In the spirit of having an open and collaborative environment, all of these channels (except for #nouns-towner-private) are viewable by the public.
 			<br />
 			<br />
-			<strong>ADD BLOCKS CLAIM INFORMATION</strong>
+			#nouns-towner-general
+			<br />
+			This is where most communication between members occurs. Anything that doesn't fit in the other NounsTowner channels likely goes here.
+			<br />
+			<br />						
+			#nouns-towner-private
+			<br />
+			While we generally prefer to keep everything out in the open, sometimes there are sensitive matters where information is only kept to members.
+			<br />
+			<br />			
+			<h3>Voice Channels</h3>						
+			#nouns-town-voice-public
+			<br />
+			This is often used when someone is making a presentation intended for everyone and anyone to see
+			<br />
+			<br />
+			
+			#nouns-town-voice-private
+			<br />
+			This is for the NounsTowners private events and meetings.
+			
+			<br />
+			<br />
+			<br />
+			<br />
+
+			<h2>BLOCKS Information</h2>
+			<h3>Find Your Place in NounsTown</h3>
+
+			Head over to <a href={`https://beta.joinblocks.com/blocks/nouns`} target="_blank" rel="noreferrer">https://beta.joinblocks.com/blocks/nouns</a> and connect your wallet.
+			<br />
+			<br />
+			Select the MY BLOCKS option in the tabbed navigation bar (it's between 'EXPLORE BLOCKS' and 'AVATARS')
+			<br />			
+			<br />
+			You'll see your PFD available for viewing and editing.
+			<br />			
+			<br />
+			You're now ready to start exploring the NounsTown environment!			
 			<br />
 			<br />
           </Trans>

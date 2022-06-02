@@ -55,7 +55,7 @@ const Documentation = () => {
           </h1>
           <p className={classes.aboutText}>
               An expansion of the {nounsLink} DAO universe, NounsTown works to create a new layer within the Nouns ecosystem. 
-			  NounsTown PFDs (profile deeds) feature the CC0 artwork from Nouns DAO, but have the added benefit of being linked to space in the Metaverse on the {blocksLink} platform!	
+			  NounsTown PFDs (profile deeds) feature the CC0 artwork from Nouns DAO, and have the added benefit of being linked to space in the Metaverse on the {blocksLink} platform!	
 			  By expanding the ecosystem into the Metaverse, building in the open, and inviting others to participate, NounsTown aims to expose more people to Nouns 
 			  and the broader Nouns mission to bootstrap identity, community and governance.
 			  Auction proceeds are split 50/50 between the {nouncilLink}, a special council of Nounish BUIDLers & Nounish extension reps, and BLOCKS DAO.
@@ -78,7 +78,7 @@ const Documentation = () => {
                   <Trans>One NounsTown PFD is trustlessly auctioned every 6 hours, forever.</Trans>
                 </li>
                 <li>
-                  <Trans>100% of NounsTown auction proceeds are trustlessly sent to the treasury, to be split 50/50 between the Nouncil and BLOCKS DAO</Trans>
+                  <Trans>100% of NounsTown auction proceeds are trustlessly sent to the treasury, to be split 50/50 between the Nouncil and BLOCKS DAO.</Trans>
                 </li>
                 <li>
                   <Trans>Settlement of one auction kicks off the next.</Trans>
@@ -91,7 +91,7 @@ const Documentation = () => {
                 </li>
                 <li>
                   <Trans>
-                    The Nouncil receives rewards in the form of NounsTown PFDs (1/16th of supply for the first 4 years (365 total NounsTown PFDs))
+                    The Nouncil receives rewards in the form of NounsTown PFDs (1/16th of supply for the first 4 years (365 total NounsTown PFDs)).
                   </Trans>
                 </li>
               </ul>
@@ -99,6 +99,36 @@ const Documentation = () => {
           </Accordion.Item>
 
           <Accordion.Item eventKey="1" className={classes.accordionItem}>
+            <Accordion.Header className={classes.accordionHeader}>
+              <Trans>WTF am I bidding on?</Trans>
+            </Accordion.Header>
+            <Accordion.Body>				
+				<p className={classes.aboutText}>
+					At a NounsTown auction, you’re bidding and trying to win a PFD (Profile Deed).
+	                <br />
+	                <br />
+	
+		            <h3>WTF PFD?</h3>
+		            A PFD (Profile Deed) is a profile pic that acts as proof of ownership to a parcel of Metaverse land in the NounsTown environment on the BLOCKS platform.
+	            </p>
+	              	
+	            <p className={classes.aboutText}>
+	            	<h3>WTF BLOCKS?</h3>
+	            	NounsTown is built on the BLOCKS platform and can be explored at:
+	            	<br />
+	                <a href={`https://beta.joinblocks.com/blocks/nouns`} target="_blank" rel="noreferrer">https://beta.joinblocks.com/blocks/nouns</a>
+	                <br />
+	                <br />
+	            	Anyone can visit NounsTown, but only PFD owners are able to customize their parcel of Metaverse land.
+	                <br />
+	                <br />
+					Once a PFD owner connects their wallet to the platform, they can select the MY BLOCKS option in the tabbed navigation bar (it's between 'EXPLORE BLOCKS' and 'AVATARS'), where they’ll see their PFDs available for viewing and editing.
+	            	
+	            </p>	            
+            </Accordion.Body>
+          </Accordion.Item>
+          
+          <Accordion.Item eventKey="2" className={classes.accordionItem}>
             <Accordion.Header className={classes.accordionHeader}>
               <Trans>6 Hour Auctions</Trans>
             </Accordion.Header>
@@ -123,7 +153,8 @@ const Documentation = () => {
               </p>
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="2" className={classes.accordionItem}>
+          
+          <Accordion.Item eventKey="3" className={classes.accordionItem}>
             <Accordion.Header className={classes.accordionHeader}>
               <Trans>Bidding and Settling Auctions</Trans>
             </Accordion.Header>
@@ -147,12 +178,13 @@ const Documentation = () => {
 	              price fluctuates, the cost of settlement also fluctuates.
 	              <br />
 	              <br />
-	              Settlement gas price of every 16th auction is higher. This is due to the transaction
+	              Settlement gas price of every 15th auction is higher. This is due to the transaction
 	              also triggering the Nouncil reward mint.
 	            </p>
             </Accordion.Body>
-          </Accordion.Item>          
-          <Accordion.Item eventKey="3" className={classes.accordionItem}>
+          </Accordion.Item>
+
+          <Accordion.Item eventKey="4" className={classes.accordionItem}>
             <Accordion.Header className={classes.accordionHeader}>
               <Trans>Nouncil</Trans>
             </Accordion.Header>
@@ -162,15 +194,7 @@ const Documentation = () => {
                 Learn more about the {nouncilLink}.
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="4" className={classes.accordionItem}>
-            <Accordion.Header className={classes.accordionHeader}>
-              <Trans>WTF PFD?</Trans>
-            </Accordion.Header>
-            <Accordion.Body>
-              	A PFD (Profile Deed) is a PFP (Profile Pic) that also represents a parcel of Metaverse land.
-				Each parcel of NounsTown Metaverse land will come with a PFD that acts as proof of ownership of that parcel on the BLOCKS platform.
-            </Accordion.Body>
-          </Accordion.Item>
+
           <Accordion.Item eventKey="5" className={classes.accordionItem}>
             <Accordion.Header className={classes.accordionHeader}>
               <Trans>PFD Traits</Trans>
@@ -206,6 +230,7 @@ const Documentation = () => {
                 You can experiment with off-chain PFD generation at the {playgroundLink}.
             </Accordion.Body>
           </Accordion.Item>
+
           <Accordion.Item eventKey="6" className={classes.accordionItem}>
             <Accordion.Header className={classes.accordionHeader}>
               <Trans>On-Chain Artwork</Trans>
@@ -231,6 +256,7 @@ const Documentation = () => {
               </p>
             </Accordion.Body>
           </Accordion.Item>
+
           <Accordion.Item eventKey="7" className={classes.accordionItem}>
             <Accordion.Header className={classes.accordionHeader}>
               <Trans>NounsTown Seeder Contract</Trans>
