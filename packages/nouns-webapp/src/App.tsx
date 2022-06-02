@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { ChainId, useEthers } from '@usedapp/core';
+import { useEthers } from '@usedapp/core';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { setActiveAccount } from './state/slices/account';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
@@ -21,11 +21,10 @@ import NotFoundPage from './pages/NotFound';
 import Playground from './pages/Playground';
 import { CHAIN_ID } from './config';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { AvatarProvider } from '@davatar/react';
 import dayjs from 'dayjs';
 
 function App() {
-  const { account, chainId, library } = useEthers();
+  const { account, chainId } = useEthers();
   const dispatch = useAppDispatch();
   dayjs.extend(relativeTime);
 
@@ -47,10 +46,6 @@ function App() {
         />
       )}
       <BrowserRouter>
-        <AvatarProvider
-          provider={chainId === ChainId.Mainnet ? library : undefined}
-          batchLookups={true}
-        >
           <NavBar />
           <Switch>
             <Route exact path="/" component={AuctionPage} />
@@ -71,7 +66,6 @@ function App() {
             <Route component={NotFoundPage} />
           </Switch>
           <Footer />
-        </AvatarProvider>
       </BrowserRouter>
     </div>
   );

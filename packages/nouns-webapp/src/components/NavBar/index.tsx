@@ -21,7 +21,7 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons';
 //import NavBarTreasury from '../NavBarTreasury';
 import NavWallet from '../NavWallet';
 import { Trans } from '@lingui/macro';
-import React, { useState } from 'react';
+import React  from 'react';
 import NavLocaleSwitcher from '../NavLocaleSwitcher';
 
 const NavBar = () => {
@@ -33,8 +33,7 @@ const NavBar = () => {
   //const lidoBalanceAsETH = useLidoBalance();
   //const treasuryBalance = ethBalance && lidoBalanceAsETH && ethBalance.add(lidoBalanceAsETH);
   //const daoEtherscanLink = buildEtherscanHoldingsLink(config.addresses.nounsDaoExecutor);
-  const [isNavExpanded, setIsNavExpanded] = useState(false);
-
+  
   const useStateBg =
     history.location.pathname === '/' ||
     history.location.pathname.includes('/block/') ||
@@ -47,15 +46,12 @@ const NavBar = () => {
     ? NavBarButtonStyle.COOL_INFO
     : NavBarButtonStyle.WARM_INFO;
 
-  const closeNav = () => setIsNavExpanded(false);
-
   return (
     <>
       <Navbar
         expand="xl"
         style={{ backgroundColor: `${useStateBg ? stateBgColor : '#434e43' /*'white'*/}` }}
         className={classes.navBarCustom}
-        expanded={isNavExpanded}
       >
         <Container style={{ maxWidth: 'unset' }}>
           <div className={classes.brandAndTreasuryWrapper}>
@@ -69,9 +65,9 @@ const NavBar = () => {
               </Nav.Item>
             )}
           </div>
-          <Navbar.Toggle className={classes.navBarToggle} aria-controls="basic-navbar-nav" onClick={() => setIsNavExpanded(!isNavExpanded)} />
+          <Navbar.Toggle className={classes.navBarToggle} aria-controls="basic-navbar-nav" />
           <Navbar.Collapse className="justify-content-end">
-            <Nav.Link href={"https://nouns.wtf"} className={classes.nounsNavLink} target="_blank" onClick={closeNav} >
+            <Nav.Link href={"https://nouns.wtf"} className={classes.nounsNavLink} target="_blank" >
               <NavBarButton
                 buttonText={<Trans>Nouns DAO</Trans>}
                 buttonIcon={<FontAwesomeIcon icon={faUsers} />}
@@ -83,7 +79,6 @@ const NavBar = () => {
               className={classes.nounsNavLink}
               target="_blank"
               rel="noreferrer"
-              onClick={closeNav}
             >
               <NavBarButton
                 buttonText={<Trans>Discord</Trans>}
@@ -91,7 +86,7 @@ const NavBar = () => {
                 buttonStyle={nonWalletButtonStyle}
               />
             </Nav.Link>
-            <Nav.Link as={Link} to="/playground" className={classes.nounsNavLink}  onClick={closeNav}>
+            <Nav.Link as={Link} to="/playground" className={classes.nounsNavLink}>
               <NavBarButton
                 buttonText={<Trans>Playground</Trans>}
                 buttonIcon={<FontAwesomeIcon icon={faPlay} />}

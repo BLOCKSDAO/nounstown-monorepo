@@ -15,6 +15,16 @@ import pfpTimpers from '../../assets/nounder-pfps/timpers.png';
 import pfpVapeape from '../../assets/nounder-pfps/vapeape.png';
 */
 import { Trans } from '@lingui/macro';
+import Link from '../../components/Link';
+
+const blocksEnvironmentLink = (
+  <Link
+    text={<Trans>https://beta.joinblocks.com/blocks/nouns</Trans>}
+    url="https://beta.joinblocks.com/blocks/nouns"
+    leavesPage={true}
+  />
+);
+
 
 /*
 const bios = [
@@ -224,7 +234,7 @@ const NouniesPage = () => {
 			<h2>BLOCKS Information</h2>
 			<h3>Find Your Place in NounsTown</h3>
 
-			Head over to <a href={`https://beta.joinblocks.com/blocks/nouns`} target="_blank" rel="noreferrer">https://beta.joinblocks.com/blocks/nouns</a> and connect your wallet.
+			Head over to {blocksEnvironmentLink} and connect your wallet.
 			<br />
 			<br />
 			Select the MY BLOCKS option in the tabbed navigation bar (it's between 'EXPLORE BLOCKS' and 'AVATARS')

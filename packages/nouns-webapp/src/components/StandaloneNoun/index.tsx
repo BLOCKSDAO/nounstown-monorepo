@@ -29,8 +29,8 @@ const getNoun = (nounId: string | EthersBN, seed: INounSeed) => {
   const { parts, background } = getNounData(seed);
   
   const seedSum = (seed.body + seed.accessory + seed.head + seed.glasses);
-  const seedMod = seedSum % 20;  
-  console.log('Sum, Mod, Seed data', seedSum, seedMod, seed);
+  //const seedMod = seedSum % 20;  
+  //console.log('Sum, Mod, Seed data', seedSum, seedMod, seed);
   //console.log('assets data', data);
   const bsvg = buildSVG(parts, data.palette, background, seedSum);
   //console.log(bsvg);
@@ -57,7 +57,7 @@ const StandaloneNoun: React.FC<StandaloneNounProps> = (props: StandaloneNounProp
 
   return (
     <Link
-      to={'/noun/' + nounId.toString()}
+      to={'/block/' + nounId.toString()}
       className={classes.clickableNoun}
       onClick={onClickHandler}
     >
@@ -80,7 +80,7 @@ export const StandaloneNounCircular: React.FC<StandaloneCircularNounProps> = (
 
   return (
     <Link
-      to={'/noun/' + nounId.toString()}
+      to={'/block/' + nounId.toString()}
       className={classes.clickableNoun}
       onClick={onClickHandler}
     >
@@ -108,7 +108,7 @@ export const StandaloneNounRoundedCorners: React.FC<StandaloneNounProps> = (
 
   return (
     <Link
-      to={'/noun/' + nounId.toString()}
+      to={'/block/' + nounId.toString()}
       className={classes.clickableNoun}
       onClick={onClickHandler}
     >
@@ -143,7 +143,7 @@ export const StandaloneNounWithSeed: React.FC<StandaloneNounWithSeedProps> = (
   const noun = <Noun imgPath={image} alt={description} />;
   const nounWithLink = (
     <Link
-      to={'/noun/' + nounId.toString()}
+      to={'/block/' + nounId.toString()}
       className={classes.clickableNoun}
       onClick={onClickHandler}
     >

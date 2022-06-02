@@ -27,6 +27,13 @@ const Documentation = () => {
       leavesPage={true}
     />
   );
+  const blocksEnvironmentLink = (
+    <Link
+      text={<Trans>https://beta.joinblocks.com/blocks/nouns</Trans>}
+      url="https://beta.joinblocks.com/blocks/nouns"
+      leavesPage={true}
+    />
+  );
   const playgroundLink = (
     <Link text={<Trans>Playground</Trans>} url="/playground" leavesPage={false} />
   );
@@ -103,20 +110,19 @@ const Documentation = () => {
               <Trans>WTF am I bidding on?</Trans>
             </Accordion.Header>
             <Accordion.Body>				
-				<p className={classes.aboutText}>
 					At a NounsTown auction, you’re bidding and trying to win a PFD (Profile Deed).
 	                <br />
 	                <br />
 	
 		            <h3>WTF PFD?</h3>
 		            A PFD (Profile Deed) is a profile pic that acts as proof of ownership to a parcel of Metaverse land in the NounsTown environment on the BLOCKS platform.
-	            </p>
-	              	
-	            <p className={classes.aboutText}>
+	                <br />
+	                <br />
+
 	            	<h3>WTF BLOCKS?</h3>
 	            	NounsTown is built on the BLOCKS platform and can be explored at:
 	            	<br />
-	                <a href={`https://beta.joinblocks.com/blocks/nouns`} target="_blank" rel="noreferrer">https://beta.joinblocks.com/blocks/nouns</a>
+	                {blocksEnvironmentLink}
 	                <br />
 	                <br />
 	            	Anyone can visit NounsTown, but only PFD owners are able to customize their parcel of Metaverse land.
@@ -124,7 +130,6 @@ const Documentation = () => {
 	                <br />
 					Once a PFD owner connects their wallet to the platform, they can select the MY BLOCKS option in the tabbed navigation bar (it's between 'EXPLORE BLOCKS' and 'AVATARS'), where they’ll see their PFDs available for viewing and editing.
 	            	
-	            </p>	            
             </Accordion.Body>
           </Accordion.Item>
           
@@ -159,19 +164,18 @@ const Documentation = () => {
               <Trans>Bidding and Settling Auctions</Trans>
             </Accordion.Header>
             <Accordion.Body>
-				<p className={classes.aboutText}>
 	            <h3>Bids</h3>
 	              Once an auction starts, everyone has 6 hours to bid. Anyone can bid an amount
 	              at/above 0.01 ETH. The Amount bid is returned to bidder if they don't win the auction
 	              (minus gas spent on bid transaction). If a bid is made within the last 5 minutes, the auction is extended by 5 minutes.
+	              <br />
+	              <br />
 	              	
-	              <p className={classes.aboutText}>
 	              <h3>Bid Refunds</h3>
 	              Unsuccessful bids are refunded in full. The timing of refunds may be offset by 1 bidder. This means that a refund is processed for an unsuccessful bid when a higher bid is submitted.
-	              </p>
-	            </p>
+	              <br />
+	              <br />
 	            
-	            <p className={classes.aboutText}>
 	            <h3>Settlement</h3>
 	              When an auction ends, a gas-only transaction is required to mint the current NounsTown PFD
 	              to the winner's wallet and start the next auction. Anyone can settle an auction. As gas
@@ -180,7 +184,6 @@ const Documentation = () => {
 	              <br />
 	              Settlement gas price of every 15th auction is higher. This is due to the transaction
 	              also triggering the Nouncil reward mint.
-	            </p>
             </Accordion.Body>
           </Accordion.Item>
 
