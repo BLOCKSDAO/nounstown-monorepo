@@ -52,7 +52,7 @@ const bios = [
     name: 'gremplin',
     image: pfpGremplin,
     description: undefined,
-    handle: 'supergremplin',
+    handle: 'gremplin',
   },
   {
     name: 'solimander',
