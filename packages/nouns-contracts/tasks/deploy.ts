@@ -136,7 +136,9 @@ task('deploy', 'Deploys NFTDescriptor, NounsDescriptor, NounsSeeder, and NounsTo
       NounsAuctionHouse: {
         waitForConfirmation: true,
       },
-      NounsAuctionHouseProxyAdmin: {},
+      NounsAuctionHouseProxyAdmin: {
+        waitForConfirmation: true,
+      },
       NounsAuctionHouseProxy: {
         args: [
           () => deployment.NounsAuctionHouse.address,

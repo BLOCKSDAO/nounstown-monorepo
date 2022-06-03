@@ -5,13 +5,13 @@ task('post-deploy-start-auction', 'Starts an auction post-deployment')
   .addOptionalParam(
     'nounsAuctionHouse',
     'The `NounsHouseAuction` contract address',
-    '0x2f7C0c0eFe1FF90Cc18a6Fce5183D6Ba142406D8',
+    '0x64EE5bbe90B6B85a7f823Da11FDB502d2A14E4f7',
     types.string,
   )
   .addOptionalParam(
     'nounsAuctionHouseProxy',
     'The `NounsHouseAuctionProxy` contract address',
-    '0x1Dc2eCc7d23C12E91542eB09F5e99ef0EED715F5',
+    '0xA2f1c683C8E2dEdFC02929f4e6f5C01D078D6274',
     types.string,
   )
   .setAction(async ({ nounsAuctionHouse, nounsAuctionHouseProxy }, { ethers }) => {
