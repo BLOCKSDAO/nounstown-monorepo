@@ -22,7 +22,7 @@
   padding: 0;
 }
 .emergencySettleButton:disabled {
-  color: #8c8d92;
+  /*color: #8c8d92;*/
   text-decoration: none;
   cursor: default;
 }
