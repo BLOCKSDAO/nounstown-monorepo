@@ -65,7 +65,7 @@ const SettleManuallyBtn: React.FC<{
           </>
         ) : (
           <>
-            <FontAwesomeIcon icon={faInfoCircle} />
+            <FontAwesomeIcon icon={faInfoCircle} />&nbsp;
             {mins !== 0 ? (
               <Trans>You can settle manually in {mins + 1} minutes</Trans>
             ) : (

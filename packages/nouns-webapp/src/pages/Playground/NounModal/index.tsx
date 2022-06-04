@@ -13,8 +13,8 @@ const downloadNounPNG = (png: string) => {
   downloadEl.click();
 };
 
-const NounModal: React.FC<{ onDismiss: () => void; svg: string }> = props => {
-  const { onDismiss, svg } = props;
+const NounModal: React.FC<{ onDismiss: () => void; svg: string; nounieName: string }> = props => {
+  const { onDismiss, svg, nounieName } = props;
 
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [png, setPng] = useState<string | null>();
@@ -53,13 +53,13 @@ const NounModal: React.FC<{ onDismiss: () => void; svg: string }> = props => {
           {png && (
             <Noun
               imgPath={png}
-              alt="noun"
+              alt="{nounieName}"
               className={classes.nounImg}
               wrapperClassName={classes.nounWrapper}
             />
           )}
           <div className={classes.displayNounFooter}>
-            <span>Use this Noun as your profile picture!</span>
+            <span>Use {nounieName} as your profile picture!</span>
             {!isMobile && png && (
               <Button
                 onClick={() => {

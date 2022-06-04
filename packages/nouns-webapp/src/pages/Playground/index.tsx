@@ -86,6 +86,8 @@ const traitKeyToLocalizedTraitKeyFirstLetterCapitalized = (s: string): ReactNode
 
 const Playground: React.FC = () => {
   const [nounSvgs, setNounSvgs] = useState<string[]>();
+  const [nounSvgHeads, setNounSvgHeads] = useState<number[]>();
+  const [nounSvgSums, setNounSvgSums] = useState<number[]>();
   const [traits, setTraits] = useState<Trait[]>();
   const [modSeed, setModSeed] = useState<{ [key: string]: number }>();
   const [initLoad, setInitLoad] = useState<boolean>(true);
@@ -104,17 +106,70 @@ const Playground: React.FC = () => {
         const { parts, background } = getNounData(seed);
 
 		const seedSum = (seed.body + seed.accessory + seed.head + seed.glasses);
-		const seedMod = seedSum % 20;  
-
-        const svg = buildSVG(parts, encoder.data.palette, background, seedMod);
+		//const seedMod = seedSum % 20;
+		
+        const svg = buildSVG(parts, encoder.data.palette, background, seedSum);
         setNounSvgs(prev => {
           return prev ? [svg, ...prev] : [svg];
+        });
+        
+        const svgHead = seed.head;
+        setNounSvgHeads(prev => {
+          return prev ? [svgHead, ...prev] : [svgHead];
+        });
+        
+        setNounSvgSums(prev => {
+          return prev ? [seedSum, ...prev] : [seedSum];
         });
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [pendingTrait, modSeed],
   );
+  
+  const getNounieName = (nounieIndex: number): string => {
+
+    let head = '';
+    let nature = '';
+    
+    if (nounSvgHeads && typeof nounSvgHeads[nounieIndex] !== 'undefined') {
+		const trait = traits?.find(t => t.title === 'head');
+		if (trait && trait.traitNames[nounSvgHeads[nounieIndex]]) {
+			head = trait.traitNames[nounSvgHeads[nounieIndex]];
+			head = parseTraitName(head);
+			
+			if (head.indexOf('-') !== -1) {
+				const subHead = parseTraitName(head);
+				head = head.substring(0, head.indexOf('-')) + ' '  + subHead;
+			}
+		}		
+    }
+
+	//Brave, Impish, Jolly, Quirky, Sassy, Timid
+    if (nounSvgSums && typeof nounSvgSums[nounieIndex] !== 'undefined') {
+		const seedSum = nounSvgSums[nounieIndex];
+		const seedMod = seedSum % 20;
+		
+		nature = 'Brave';
+		if (seedMod > 7) {
+			if (seedMod === 8) { //up
+				nature = 'Sassy';
+			} else if (seedMod === 9) { //down
+				nature = 'Timid';
+			} else if (seedMod === 10 || seedMod === 11) { //cross
+				nature = 'Jolly';
+			} else if (seedMod === 12 || seedMod === 13) { //opposite
+				nature = 'Quirky';
+			} else { //left
+				nature = 'Impish';
+			}
+		}
+	}                 
+	
+	const nounieName = nature + ' ' + head;
+
+	return nounieName;
+  };
 
   useEffect(() => {
     const traitTitles = ['background', 'body', 'accessory', 'head', 'glasses'];
@@ -260,6 +315,7 @@ const Playground: React.FC = () => {
             setDisplayNoun(false);
           }}
           svg={nounSvgs[indexOfNounToDisplay]}
+          nounieName={getNounieName(indexOfNounToDisplay)}
         />
       )}
 
@@ -388,6 +444,9 @@ const Playground: React.FC = () => {
             <Row>
               {nounSvgs &&
                 nounSvgs.map((svg, i) => {
+                
+                  const nounieName = getNounieName(i);                
+                
                   return (
                     <Col xs={4} lg={3} key={i}>
                       <div
@@ -398,10 +457,12 @@ const Playground: React.FC = () => {
                       >
                         <Noun
                           imgPath={`data:image/svg+xml;base64,${btoa(svg)}`}
-                          alt="noun"
+                          alt={nounieName}
                           className={classes.nounImg}
                           wrapperClassName={classes.nounWrapper}
+                          nounieName={nounieName}
                         />
+                        &nbsp;
                       </div>
                     </Col>
                   );

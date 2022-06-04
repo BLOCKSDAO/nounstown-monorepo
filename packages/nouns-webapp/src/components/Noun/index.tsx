@@ -16,8 +16,9 @@ const Noun: React.FC<{
   alt: string;
   className?: string;
   wrapperClassName?: string;
+  nounieName?: string;
 }> = props => {
-  const { imgPath, alt, className, wrapperClassName } = props;
+  const { imgPath, alt, className, wrapperClassName, nounieName } = props;
   return (
     <div className={`${classes.imgWrapper} ${wrapperClassName}`}>
       <Image
@@ -26,6 +27,7 @@ const Noun: React.FC<{
         alt={alt}
         fluid
       />
+      {nounieName}
     </div>
   );
 };

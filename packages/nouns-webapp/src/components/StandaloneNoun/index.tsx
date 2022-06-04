@@ -22,6 +22,11 @@ interface StandaloneNounWithSeedProps {
   shouldLinkToProfile: boolean;
 }
 
+const parseTraitName = (partName: string): string =>
+  capitalizeFirstLetter(partName.substring(partName.indexOf('-') + 1));
+
+const capitalizeFirstLetter = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
+
 const getNoun = (nounId: string | EthersBN, seed: INounSeed) => {
   const id = nounId.toString();
   const name = `NounsTown ${id}`;
@@ -33,14 +38,43 @@ const getNoun = (nounId: string | EthersBN, seed: INounSeed) => {
   //console.log('Sum, Mod, Seed data', seedSum, seedMod, seed);
   //console.log('assets data', data);
   const bsvg = buildSVG(parts, data.palette, background, seedSum);
-  //console.log(bsvg);
     
   const image = `data:image/svg+xml;base64,${btoa(bsvg)}`;
+
+  //Now do the Nounies Name logic  
+  let head = '';
+  head = data.images.heads[seed.head].filename;
+  head = parseTraitName(head);
+  
+  if (head.indexOf('-') !== -1) {
+  	const subHead = parseTraitName(head);
+	head = head.substring(0, head.indexOf('-')) + ' '  + subHead;
+  }
+    
+  //Brave, Impish, Jolly, Quirky, Sassy, Timid
+  let nature = 'Brave';
+  const seedMod = seedSum % 20;
+  if (seedMod > 7) {
+  	if (seedMod === 8) { //up
+  		nature = 'Sassy';
+  	} else if (seedMod === 9) { //down
+  		nature = 'Timid';
+  	} else if (seedMod === 10 || seedMod === 11) { //cross
+  		nature = 'Jolly';
+  	} else if (seedMod === 12 || seedMod === 13) { //opposite
+  		nature = 'Quirky';
+	} else { //left
+		nature = 'Impish';
+	}
+  }
+  
+  const nounieName = nature + ' ' + head;
 
   return {
     name,
     description,
     image,
+    nounieName,
   };
 };
 
@@ -138,9 +172,9 @@ export const StandaloneNounWithSeed: React.FC<StandaloneNounWithSeedProps> = (
     dispatch(setOnDisplayAuctionNounId(nounId.toNumber()));
   };
 
-  const { image, description } = getNoun(nounId, seed);
+  const { image, description, nounieName } = getNoun(nounId, seed);
 
-  const noun = <Noun imgPath={image} alt={description} />;
+  const noun = <Noun imgPath={image} alt={description} className={classes.centerNoun} nounieName={nounieName} />;
   const nounWithLink = (
     <Link
       to={'/block/' + nounId.toString()}
