@@ -21,6 +21,7 @@ library MultiPartRLEToSVG {
     struct SVGParams {
         bytes[] parts;
         string background;
+        uint256 seedSum;
     }
 
     struct ContentBounds {
@@ -49,12 +50,31 @@ library MultiPartRLEToSVG {
         view
         returns (string memory svg)
     {
+    	string memory overlay;
+    	uint256 seedMod = params.seedSum % 20;
+    	
+		if (seedMod > 7) {
+			overlay = '<rect x="110" y="120" fill="#fff" width="40" height="40"/><rect x="180" y="120" fill="#fff" width="40" height="40"/>';
+			if (seedMod == 8) { //up
+				overlay = string(abi.encodePacked(overlay, '<rect x="110" y="120" fill="#000" width="40" height="20"/><rect x="180" y="120" fill="#000" width="40" height="20"/>'));
+			} else if (seedMod == 9) { //down
+				overlay = string(abi.encodePacked(overlay, '<rect x="110" y="140" fill="#000" width="40" height="20"/><rect x="180" y="140" fill="#000" width="40" height="20"/>'));
+			} else if (seedMod == 10 || seedMod == 11) { //cross
+				overlay = string(abi.encodePacked(overlay, '<rect x="130" y="120" fill="#000" width="20" height="40"/><rect x="180" y="120" fill="#000" width="20" height="40"/>'));
+			} else if (seedMod == 12 || seedMod == 13) { //opposite
+				overlay = string(abi.encodePacked(overlay, '<rect x="110" y="120" fill="#000" width="20" height="40"/><rect x="200" y="120" fill="#000" width="20" height="40"/>'));
+			} else { //left
+				overlay = string(abi.encodePacked(overlay, '<rect x="110" y="120" fill="#000" width="20" height="40"/><rect x="180" y="120" fill="#000" width="20" height="40"/>'));
+			}
+		}
+    	
         // prettier-ignore
         return string(
             abi.encodePacked(
                 '<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">',
                 '<rect width="100%" height="100%" fill="#', params.background, '" />',
                 _generateSVGRects(params, palettes),
+                overlay,
                 '</svg>'
             )
         );

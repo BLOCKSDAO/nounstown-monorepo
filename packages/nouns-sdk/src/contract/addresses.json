@@ -1,0 +1,38 @@
+{
+  "1": {
+    "nounsToken": "0x9C8fF314C9Bc7F6e59A9d9225Fb22946427eDC03",
+    "nounsSeeder": "0xCC8a0FB5ab3C7132c1b2A0109142Fb112c4Ce515",
+    "nounsDescriptor": "0x0Cfdb3Ba1694c2bb2CFACB0339ad7b1Ae5932B63",
+    "nftDescriptor": "0x0BBAd8c947210ab6284699605ce2a61780958264",
+    "nounsAuctionHouse": "0xF15a943787014461d94da08aD4040f79Cd7c124e",
+    "nounsAuctionHouseProxy": "0x830BD73E4184ceF73443C15111a1DF14e495C706",
+    "nounsAuctionHouseProxyAdmin": "0xC1C119932d78aB9080862C5fcb964029f086401e",
+    "nounsDaoExecutor": "0x0BC3807Ec262cB779b38D65b38158acC3bfedE10",
+    "nounsDAOProxy": "0x6f3E6272A167e8AcCb32072d08E0957F9c79223d",
+    "nounsDAOLogicV1": "0xa43aFE317985726E4e194eb061Af77fbCb43F944"
+  },
+  "4": {
+    "nounsToken": "0x11dA7942D1472cd1868cf04752792FAA32C92463",
+    "nounsSeeder": "0x646c5A1ded4D75FA341D48bF5B80fd5bEdbe5F3E",
+    "nounsDescriptor": "0x19a3fd6B29e286b7E1C44aDeE6E877FAEf2117b8",
+    "nftDescriptor": "0x7A0367BDe34B2A67bd468F9c0689968608eea95A",
+    "nounsAuctionHouse": "0x4E13CdE3ccdCcC2c5C9D4E26f1B0C1434e0F65A9",
+    "nounsAuctionHouseProxy": "0x4bED4423CE34383d3AEc1A5297FC69999A691f27",
+    "nounsAuctionHouseProxyAdmin": "0x34B70D3238ae1e838CDc13156455bA685525F0Cb",
+    "nounsDaoExecutor": "0x1DBA8a9C72a26f9d1f8E1cca6e5B4aeE13E204cf",
+    "nounsDAOProxy": "0xddaDA333529e3a7c898b753E973a0BeeC749E4a8",
+    "nounsDAOLogicV1": "0x5FE536c389A99E54d35E22b99FBaa4299f41E823"
+  },
+  "31337": {
+    "nounsToken": "0x7bc06c482DEAd17c0e297aFbC32f6e63d3846650",
+    "nounsSeeder": "0x7969c5eD335650692Bc04293B07F5BF2e7A673C0",
+    "nounsDescriptor": "0x2bdCC0de6bE1f7D2ee689a0342D76F52E8EFABa3",
+    "nftDescriptor": "0x82e01223d51Eb87e16A03E24687EDF0F294da6f1",
+    "nounsAuctionHouse": "0xc351628EB244ec633d5f21fBD6621e1a683B1181",
+    "nounsAuctionHouseProxy": "0xcbEAF3BDe82155F56486Fb5a1072cb8baAf547cc",
+    "nounsAuctionHouseProxyAdmin": "0xFD471836031dc5108809D173A067e8486B9047A3",
+    "nounsDaoExecutor": "0x1429859428C0aBc9C2C47C8Ee9FBaf82cFA0F20f",
+    "nounsDAOProxy": "0x162A433068F51e18b7d13932F27e66a3f99E6890",
+    "nounsDAOLogicV1": "0xB0D4afd8879eD9F52b28595d31B441D079B2Ca07"
+  }
+}

@@ -2,17 +2,18 @@
   margin: 2rem 0;
 }
 .headerRow span {
-  color: #8c8d92;
+  color: #a3efd0; /*#8c8d92;*/
+
   font-size: 24px;
   font-family: 'Londrina Solid';
 }
 .headerRow h1 {
-  color: #14161b;
+  color: #a3efd0; /*#14161b;*/
   font-size: 56px;
   font-family: 'Londrina Solid';
 }
 .headerRow p {
-  color: #14161b;
+  color: #a3efd0; /*#14161b;*/
 }
 
 .primaryBtn {
@@ -23,14 +24,17 @@
   border-radius: 12px;
   background-color: var(--brand-dark-red);
   border: var(--brand-dark-red);
+  color: #000000;
 }
 .primaryBtn:focus,
 .primaryBtn:hover {
   background-color: var(--brand-dark-red) !important;
   box-shadow: 0 0 0 0.2rem rgb(214, 60, 94, 0.75);
+  color: #000000;
 }
 .primaryBtn:active {
   background-color: var(--brand-dark-red) !important;
+  color: #000000;
 }
 .traitForm {
   height: 4rem;

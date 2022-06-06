@@ -1,3 +1,13 @@
+.documentationSection {
+  background: #434e43;
+  color: #a3efd0;
+}
+
+.documentationSection .accordionItem {
+  background: #434e43;
+  color: #a3efd0;
+}
+
 .headerWrapper h1 {
   font-family: 'Londrina Solid';
   font-size: 4rem;
@@ -55,7 +65,7 @@
 }
 
 .accordionHeader button:not(.collapsed) {
-  color: #212529;
+  color: #a3efd0; /*#212529;*/
   background-color: transparent;
   box-shadow: none !important;
 }

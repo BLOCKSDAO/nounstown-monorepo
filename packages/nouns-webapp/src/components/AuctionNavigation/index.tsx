@@ -9,7 +9,7 @@ const AuctionNavigation: React.FC<{
   onNextAuctionClick: () => void;
 }> = props => {
   const { isFirstAuction, isLastAuction, onPrevAuctionClick, onNextAuctionClick } = props;
-  const isCool = useAppSelector(state => state.application.stateBackgroundColor) === '#d5d7e1';
+  const isCool = useAppSelector(state => state.application.stateBackgroundColor) === '#758875';
   return (
     <div className={classes.navArrowsContainer}>
       <button

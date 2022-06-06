@@ -1,7 +1,8 @@
 import React from 'react';
 import classes from './NoundersPage.module.css';
 import Section from '../../layout/Section';
-import { Col, Row, Card } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+/*
 import pfp4156 from '../../assets/nounder-pfps/4156.png';
 import pfp9999 from '../../assets/nounder-pfps/9999.png';
 import pfpCryptoseneca from '../../assets/nounder-pfps/cryptoseneca.png';
@@ -12,8 +13,10 @@ import pfpSolimander from '../../assets/nounder-pfps/solimander.png';
 import pfpGremplin from '../../assets/nounder-pfps/gremplin.png';
 import pfpTimpers from '../../assets/nounder-pfps/timpers.png';
 import pfpVapeape from '../../assets/nounder-pfps/vapeape.png';
+*/
 import { Trans } from '@lingui/macro';
 
+/*
 const bios = [
   {
     name: '4156',
@@ -76,7 +79,9 @@ const bios = [
     handle: 'lastpunk9999',
   },
 ];
+*/
 
+/*
 const BioCard: React.FC<{
   name: string;
   description?: string | undefined;
@@ -112,7 +117,9 @@ const BioCard: React.FC<{
     </>
   );
 };
+*/
 
+/*
 const BioCards: React.FC<{ min: number; max: number }> = props => {
   const { min, max } = props;
   return (
@@ -125,14 +132,9 @@ const BioCards: React.FC<{ min: number; max: number }> = props => {
     </>
   );
 };
+*/
 
-const NoundersPage = () => {
-  return (
-    <Section fullWidth={true} className={classes.noundersPage}>
-      <Col lg={{ span: 6, offset: 3 }}>
-        <h2 style={{ marginBottom: '2rem' }}>
-          <Trans>The Nounders</Trans>
-        </h2>
+/*
         <h3 style={{ marginBottom: '2rem' }}>
           <Trans>3.5 artists, 6.5 technologists</Trans>
         </h3>
@@ -141,22 +143,40 @@ const NoundersPage = () => {
           <BioCards min={5} max={10} />
         </Row>
         <h3>
-          <Trans>Nounders' Reward</Trans>
+          <Trans>Nouncil</Trans>
         </h3>
+*/
+
+const NoundersPage = () => {
+  return (
+    <Section fullWidth={true} className={classes.noundersPage}>
+      <Col lg={{ span: 6, offset: 3 }}>
+        <h2 style={{ marginBottom: '2rem' }}>
+          <Trans>The Nouncil</Trans>
+        </h2>
         <p style={{ textAlign: 'justify' }}>
           <Trans>
-            All Noun auction proceeds are sent to the Nouns DAO. For this reason, we, the project's
-            founders (‘Nounders’) have chosen to compensate ourselves with Nouns. Every 10th noun
-            for the first 5 years of the project will be sent to our multisig (5/10), where it will
-            be vested and distributed to individual Nounders.
-          </Trans>
-        </p>
-        <p style={{ textAlign: 'justify' }}>
-          <Trans>
-            The Nounders reward is intended as compensation for our pre and post-launch
-            contributions to the project, and to help us participate meaningfully in governance as
-            the project matures. Since there are 10 Nounders, after 5 years each Nounder could
-            receive up to 1% of the Noun supply.
+			Nouncil is a special council of Nounish BUIDLers and NFT community leaders that seek to extend the Nouns DAO universe. Our goal is to work together within the framework of Nouns DAO, using the Nouns that have been generously delegated to us, to be a voice for the nounish states and do our part to proliferate CC0 and Nounish culture.
+			<br />
+			<br />
+			<strong>Nouncil Facts</strong>
+			<br />
+			<br />
+
+			<ul>			
+			<li>Founded in Feb 2022</li>
+			<li>Currently have 13 Nouns delegated to us</li>
+			<li>There are 32 Nouncillors, and we accept new applicants every month</li>
+			<li>We have voted on over 15 Nouns DAO Proposals (Noun 23 1 has our whole voting record)</li>
+			<li>We are very active in Discord and Discourse publicly discussing Nouns DAO proposals</li>
+			<li>We have Our Own Theme Song 1 by Woody</li>
+			<li>We delivered a sick POAP 2 to founding Nouncillors (art by Messhup)</li>
+			</ul>
+
+			The Nouncil receives rewards in the form of NounsTown PFDs.
+            Every 16th Noun for the first 4 years of the project will be
+            sent to the Nouncil, where it will be vested and distributed to individual
+            Nouncil members (365 total NounsTown PFDs).
           </Trans>
         </p>
       </Col>

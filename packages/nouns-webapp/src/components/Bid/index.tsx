@@ -1,5 +1,6 @@
 import { Auction, AuctionHouseContractFunction } from '../../wrappers/nounsAuction';
-import { connectContractToSigner, useEthers, useContractFunction } from '@usedapp/core';
+import { useEthers, useContractFunction } from '@usedapp/core';
+import { connectContractToSigner } from '@usedapp/core/dist/cjs/src/hooks';
 import { useAppSelector } from '../../hooks';
 import React, { useEffect, useState, useRef, ChangeEvent, useCallback } from 'react';
 import { utils, BigNumber as EthersBN } from 'ethers';
@@ -290,11 +291,13 @@ const Bid: React.FC<{
           </Button>
         ) : (
           <>
+          	{false && (
             <Col lg={12} className={classes.voteForNextNounBtnWrapper}>
               <Button className={classes.bidBtnAuctionEnded} onClick={fomoNounsBtnOnClickHandler}>
                 <Trans>Vote for the next Noun</Trans> ⌐◧-◧
               </Button>
             </Col>
+            )}
             {/* Only show force settle button if wallet connected */}
             {isWalletConnected && (
               <Col lg={12}>

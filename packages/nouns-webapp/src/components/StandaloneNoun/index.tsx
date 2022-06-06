@@ -24,10 +24,18 @@ interface StandaloneNounWithSeedProps {
 
 const getNoun = (nounId: string | EthersBN, seed: INounSeed) => {
   const id = nounId.toString();
-  const name = `Noun ${id}`;
-  const description = `Noun ${id} is a member of the Nouns DAO`;
+  const name = `NounsTown ${id}`;
+  const description = `NounsTown ${id} is a member of the NounsTown DAO`;
   const { parts, background } = getNounData(seed);
-  const image = `data:image/svg+xml;base64,${btoa(buildSVG(parts, data.palette, background))}`;
+  
+  const seedSum = (seed.body + seed.accessory + seed.head + seed.glasses);
+  const seedMod = seedSum % 20;  
+  console.log('Sum, Mod, Seed data', seedSum, seedMod, seed);
+  //console.log('assets data', data);
+  const bsvg = buildSVG(parts, data.palette, background, seedSum);
+  //console.log(bsvg);
+    
+  const image = `data:image/svg+xml;base64,${btoa(bsvg)}`;
 
   return {
     name,
@@ -117,11 +125,11 @@ export const StandaloneNounWithSeed: React.FC<StandaloneNounWithSeedProps> = (
   props: StandaloneNounWithSeedProps,
 ) => {
   const { nounId, onLoadSeed, shouldLinkToProfile } = props;
-
+	
   const dispatch = useDispatch();
   const seed = useNounSeed(nounId);
   const seedIsInvalid = Object.values(seed || {}).every(v => v === 0);
-
+  
   if (!seed || seedIsInvalid || !nounId || !onLoadSeed) return <Noun imgPath="" alt="Noun" />;
 
   onLoadSeed(seed);

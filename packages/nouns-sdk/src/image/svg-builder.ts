@@ -36,6 +36,7 @@ export const buildSVG = (
   parts: { data: string }[],
   paletteColors: string[],
   bgColor: string,
+  seedSum: number
 ): string => {
   const svgWithoutEndTag = parts.reduce((result, part) => {
     const svgRects: string[] = [];
@@ -67,5 +68,24 @@ export const buildSVG = (
     return result;
   }, `<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#${bgColor}" />`);
 
-  return `${svgWithoutEndTag}</svg>`;
+  let overlay = '';
+  const seedMod = seedSum % 20;
+  if (seedMod > 7) {
+  	overlay = '<rect x="110" y="120" fill="#fff" width="40" height="40"/><rect x="180" y="120" fill="#fff" width="40" height="40"/>';
+	if (seedMod == 8) { //up
+		overlay = overlay + '<rect x="110" y="120" fill="#000" width="40" height="20"/><rect x="180" y="120" fill="#000" width="40" height="20"/>';
+	} else if (seedMod == 9) { //down
+		overlay = overlay + '<rect x="110" y="140" fill="#000" width="40" height="20"/><rect x="180" y="140" fill="#000" width="40" height="20"/>';
+	} else if (seedMod == 10 || seedMod == 11) { //cross
+		overlay = overlay + '<rect x="130" y="120" fill="#000" width="20" height="40"/><rect x="180" y="120" fill="#000" width="20" height="40"/>';
+	} else if (seedMod == 12 || seedMod == 13) { //opposite
+		overlay = overlay + '<rect x="110" y="120" fill="#000" width="20" height="40"/><rect x="200" y="120" fill="#000" width="20" height="40"/>';
+	} else { //left
+		overlay = overlay + '<rect x="110" y="120" fill="#000" width="20" height="40"/><rect x="180" y="120" fill="#000" width="20" height="40"/>';
+	}	
+  }
+  
+  console.log('overlay DELETE ME', overlay);
+
+  return `${svgWithoutEndTag}${overlay}</svg>`;
 };

@@ -126,7 +126,7 @@ const AuctionActivity: React.FC<AuctionActivityProps> = (props: AuctionActivityP
             </Col>
           </Row>
         </div>
-        {!auctionEnded && (
+        {!auctionEnded && false && (
           <Row className={classes.activityRow}>
             <Col lg={12} className={classes.fomoNounsLink}>
               <FontAwesomeIcon icon={faInfoCircle} />

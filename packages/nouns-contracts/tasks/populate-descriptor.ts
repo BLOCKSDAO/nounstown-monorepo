@@ -15,7 +15,13 @@ task('populate-descriptor', 'Populates the descriptor with color palettes and No
     '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512',
     types.string,
   )
-  .setAction(async ({ nftDescriptor, nounsDescriptor }, { ethers }) => {
+  .addOptionalParam(
+    'nounsDescriptorDeployed',
+    'The `NounsDescriptorDeployed` contract address',
+    '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512',
+    types.string,
+  )
+  .setAction(async ({ nftDescriptor, nounsDescriptor, nounsDescriptorDeployed }, { ethers }) => {
     const descriptorFactory = await ethers.getContractFactory('NounsDescriptor', {
       libraries: {
         NFTDescriptor: nftDescriptor,
@@ -25,10 +31,16 @@ task('populate-descriptor', 'Populates the descriptor with color palettes and No
 
     const { bgcolors, palette, images } = ImageData;
     const { bodies, accessories, heads, glasses } = images;
+    
+    console.log('setting deployed descriptor', nounsDescriptorDeployed);
+    await descriptorContract.setDeployedDescriptor(nounsDescriptorDeployed);
 
     // Chunk head and accessory population due to high gas usage
     await descriptorContract.addManyBackgrounds(bgcolors);
     await descriptorContract.addManyColorsToPalette(0, palette);
+    
+    /*
+    * Don't load any of the body, accessory, head or glasses assets
     await descriptorContract.addManyBodies(bodies.map(({ data }) => data));
 
     const accessoryChunk = chunkArray(accessories, 10);
@@ -42,6 +54,18 @@ task('populate-descriptor', 'Populates the descriptor with color palettes and No
     }
 
     await descriptorContract.addManyGlasses(glasses.map(({ data }) => data));
+    */
 
-    console.log('Descriptor populated with palettes and parts');
+    console.log('MAIN Descriptor populated with palettes and parts.');
+
+	//const version1 = await descriptorContract.getVersion();
+	//console.log('main version', version1);
+
+	/*
+	const bodyCount = await descriptorContract.bodyCount();
+	console.log('main body count', bodyCount);
+	
+	const bg1 = await descriptorContract.backgrounds(0);
+	console.log('main bg 1', bg1);
+	*/
   });

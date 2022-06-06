@@ -23,6 +23,7 @@ import { INounsDescriptor } from './interfaces/INounsDescriptor.sol';
 import { INounsSeeder } from './interfaces/INounsSeeder.sol';
 import { NFTDescriptor } from './libs/NFTDescriptor.sol';
 import { MultiPartRLEToSVG } from './libs/MultiPartRLEToSVG.sol';
+import { INounsDescriptorDeployed } from './interfaces/INounsDescriptorDeployed.sol';
 
 contract NounsDescriptor is INounsDescriptor, Ownable {
     using Strings for uint256;
@@ -58,6 +59,9 @@ contract NounsDescriptor is INounsDescriptor, Ownable {
     // Noun Glasses (Custom RLE)
     bytes[] public override glasses;
 
+    // The deployed Nouns token URI descriptor
+    INounsDescriptorDeployed public deployedDescriptor;
+
     /**
      * @notice Require that the parts have not been locked.
      */
@@ -77,28 +81,32 @@ contract NounsDescriptor is INounsDescriptor, Ownable {
      * @notice Get the number of available Noun `bodies`.
      */
     function bodyCount() external view override returns (uint256) {
-        return bodies.length;
+        //return bodies.length;
+        return deployedDescriptor.bodyCount();
     }
 
     /**
      * @notice Get the number of available Noun `accessories`.
      */
     function accessoryCount() external view override returns (uint256) {
-        return accessories.length;
+        //return accessories.length;
+        return deployedDescriptor.accessoryCount();
     }
 
     /**
      * @notice Get the number of available Noun `heads`.
      */
     function headCount() external view override returns (uint256) {
-        return heads.length;
+        //return heads.length;
+        return deployedDescriptor.headCount();
     }
 
     /**
      * @notice Get the number of available Noun `glasses`.
      */
     function glassesCount() external view override returns (uint256) {
-        return glasses.length;
+        //return glasses.length;
+        return deployedDescriptor.glassesCount();
     }
 
     /**
@@ -261,8 +269,8 @@ contract NounsDescriptor is INounsDescriptor, Ownable {
      */
     function dataURI(uint256 tokenId, INounsSeeder.Seed memory seed) public view override returns (string memory) {
         string memory nounId = tokenId.toString();
-        string memory name = string(abi.encodePacked('Noun ', nounId));
-        string memory description = string(abi.encodePacked('Noun ', nounId, ' is a member of the Nouns DAO'));
+        string memory name = string(abi.encodePacked('NounsTown ', nounId));
+        string memory description = string(abi.encodePacked('NounsTown ', nounId, ' is a member of the NounsTown DAO'));
 
         return genericDataURI(name, description, seed);
     }
@@ -279,7 +287,8 @@ contract NounsDescriptor is INounsDescriptor, Ownable {
             name: name,
             description: description,
             parts: _getPartsForSeed(seed),
-            background: backgrounds[seed.background]
+            background: backgrounds[seed.background],
+            seedSum: (seed.body + seed.accessory + seed.head + seed.glasses)
         });
         return NFTDescriptor.constructTokenURI(params, palettes);
     }
@@ -290,7 +299,8 @@ contract NounsDescriptor is INounsDescriptor, Ownable {
     function generateSVGImage(INounsSeeder.Seed memory seed) external view override returns (string memory) {
         MultiPartRLEToSVG.SVGParams memory params = MultiPartRLEToSVG.SVGParams({
             parts: _getPartsForSeed(seed),
-            background: backgrounds[seed.background]
+            background: backgrounds[seed.background],
+            seedSum: (seed.body + seed.accessory + seed.head + seed.glasses)
         });
         return NFTDescriptor.generateSVGImage(params, palettes);
     }
@@ -342,10 +352,20 @@ contract NounsDescriptor is INounsDescriptor, Ownable {
      */
     function _getPartsForSeed(INounsSeeder.Seed memory seed) internal view returns (bytes[] memory) {
         bytes[] memory _parts = new bytes[](4);
-        _parts[0] = bodies[seed.body];
-        _parts[1] = accessories[seed.accessory];
-        _parts[2] = heads[seed.head];
-        _parts[3] = glasses[seed.glasses];
+        _parts[0] = deployedDescriptor.bodies(seed.body);
+        _parts[1] = deployedDescriptor.accessories(seed.accessory);
+        _parts[2] = deployedDescriptor.heads(seed.head);
+        _parts[3] = deployedDescriptor.glasses(seed.glasses);
         return _parts;
+    }
+
+    /**
+     * @notice Update the deployed descriptor contract.
+     * @dev This function can only be called by the owner when not locked.
+     */
+    function setDeployedDescriptor(INounsDescriptorDeployed _descriptor) external override onlyOwner whenPartsNotLocked {
+        deployedDescriptor = _descriptor;
+
+        emit DescriptorUpdated(_descriptor);        
     }
 }

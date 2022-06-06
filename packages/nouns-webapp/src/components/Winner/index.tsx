@@ -39,7 +39,7 @@ const Winner: React.FC<WinnerProps> = props => {
       {!isMobile && (
         <Col>
           <a
-            href="https://nouns.center/nouners"
+            href="/nounies"
             target="_blank"
             rel="noreferrer noopener"
             className={classes.verifyLink}
@@ -55,7 +55,7 @@ const Winner: React.FC<WinnerProps> = props => {
     <ShortAddress size={40} address={winner} avatar={true} />
   );
 
-  const nounderNounContent = <h2>nounders.eth</h2>;
+  const nounderNounContent = 'Nouncil';
 
   return (
     <>
@@ -84,7 +84,7 @@ const Winner: React.FC<WinnerProps> = props => {
       {isWinnerYou && isMobile && (
         <Row>
           <a
-            href="https://nouns.center/nouners"
+            href="/nounies"
             target="_blank"
             rel="noreferrer noopener"
             className={classes.verifyLink}

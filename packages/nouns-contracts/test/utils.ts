@@ -3,12 +3,14 @@ import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import {
   NounsDescriptor,
   NounsDescriptor__factory as NounsDescriptorFactory,
+  NounsDescriptorDeployed,
+  NounsDescriptorDeployed__factory as NounsDescriptorDeployedFactory,
   NounsToken,
   NounsToken__factory as NounsTokenFactory,
   NounsSeeder,
   NounsSeeder__factory as NounsSeederFactory,
-  Weth,
-  Weth__factory as WethFactory,
+  WETH,
+  WETH__factory as WethFactory,
 } from '../typechain';
 import ImageData from '../files/image-data.json';
 import { Block } from '@ethersproject/abstract-provider';
@@ -39,12 +41,28 @@ export const deployNounsDescriptor = async (
   const nftDescriptorLibrary = await nftDescriptorLibraryFactory.deploy();
   const nounsDescriptorFactory = new NounsDescriptorFactory(
     {
-      __$e1d8844a0810dc0e87a665b1f2b5fa7c69$__: nftDescriptorLibrary.address,
+      'contracts/libs/NFTDescriptor.sol:NFTDescriptor': nftDescriptorLibrary.address,
     },
     signer,
   );
 
   return nounsDescriptorFactory.deploy();
+};
+
+export const deployNounsDescriptorDeployed = async (
+  deployer?: SignerWithAddress,
+): Promise<NounsDescriptorDeployed> => {
+  const signer = deployer || (await getSigners()).deployer;
+  const nftDescriptorLibraryFactory = await ethers.getContractFactory('NFTDescriptor', signer);
+  const nftDescriptorLibrary = await nftDescriptorLibraryFactory.deploy();
+  const nounsDescriptorDeployedFactory = new NounsDescriptorDeployedFactory(
+    {
+      'contracts/libs/NFTDescriptor.sol:NFTDescriptor': nftDescriptorLibrary.address,
+    },
+    signer,
+  );
+
+  return nounsDescriptorDeployedFactory.deploy();
 };
 
 export const deployNounsSeeder = async (deployer?: SignerWithAddress): Promise<NounsSeeder> => {
@@ -73,8 +91,8 @@ export const deployNounsToken = async (
   );
 };
 
-export const deployWeth = async (deployer?: SignerWithAddress): Promise<Weth> => {
-  const factory = new WethFactory(deployer || (await await getSigners()).deployer);
+export const deployWeth = async (deployer?: SignerWithAddress): Promise<WETH> => {
+  const factory = new WethFactory(deployer || (await getSigners()).deployer);
 
   return factory.deploy();
 };
@@ -87,12 +105,31 @@ export const populateDescriptor = async (nounsDescriptor: NounsDescriptor): Prom
   await Promise.all([
     nounsDescriptor.addManyBackgrounds(bgcolors),
     nounsDescriptor.addManyColorsToPalette(0, palette),
+    /*
     nounsDescriptor.addManyBodies(bodies.map(({ data }) => data)),
     chunkArray(accessories, 10).map(chunk =>
       nounsDescriptor.addManyAccessories(chunk.map(({ data }) => data)),
     ),
     chunkArray(heads, 10).map(chunk => nounsDescriptor.addManyHeads(chunk.map(({ data }) => data))),
     nounsDescriptor.addManyGlasses(glasses.map(({ data }) => data)),
+    */
+  ]);
+};
+
+export const populateDescriptorDeployed = async (nounsDescriptorDeployed: NounsDescriptorDeployed): Promise<void> => {
+  const { bgcolors, palette, images } = ImageData;
+  const { bodies, accessories, heads, glasses } = images;
+
+  // Split up head and accessory population due to high gas usage
+  await Promise.all([
+    nounsDescriptorDeployed.addManyBackgrounds(bgcolors),
+    nounsDescriptorDeployed.addManyColorsToPalette(0, palette),
+    nounsDescriptorDeployed.addManyBodies(bodies.map(({ data }) => data)),
+    chunkArray(accessories, 10).map(chunk =>
+      nounsDescriptorDeployed.addManyAccessories(chunk.map(({ data }) => data)),
+    ),
+    chunkArray(heads, 10).map(chunk => nounsDescriptorDeployed.addManyHeads(chunk.map(({ data }) => data))),
+    nounsDescriptorDeployed.addManyGlasses(glasses.map(({ data }) => data)),
   ]);
 };
 
