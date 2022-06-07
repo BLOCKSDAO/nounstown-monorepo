@@ -82,7 +82,8 @@
   opacity: 0.3;
   top: 15%;
   left: 3%;
-  color: var(--brand-cool-light-text);
+  /*color: var(--brand-cool-light-text);*/
+  color: black;
   font-family: 'PT Root UI';
   font-weight: bold;
   font-size: 25px;
