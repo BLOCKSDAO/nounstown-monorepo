@@ -17,12 +17,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 //import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { faComments } from '@fortawesome/free-solid-svg-icons';
+import { faCrosshairs } from '@fortawesome/free-solid-svg-icons';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 //import NavBarTreasury from '../NavBarTreasury';
 import NavWallet from '../NavWallet';
 import { Trans } from '@lingui/macro';
 import React  from 'react';
-import NavLocaleSwitcher from '../NavLocaleSwitcher';
+//import NavLocaleSwitcher from '../NavLocaleSwitcher';
 
 const NavBar = () => {
   const activeAccount = useAppSelector(state => state.account.activeAccount);
@@ -45,7 +46,9 @@ const NavBar = () => {
     : isCool
     ? NavBarButtonStyle.COOL_INFO
     : NavBarButtonStyle.WARM_INFO;
-
+    
+  /* <NavLocaleSwitcher buttonStyle={nonWalletButtonStyle} /> */
+    
   return (
     <>
       <Navbar
@@ -69,7 +72,7 @@ const NavBar = () => {
           <Navbar.Collapse className="justify-content-end">
             <Nav.Link href={"https://nouns.wtf"} className={classes.nounsNavLink} target="_blank" >
               <NavBarButton
-                buttonText={<Trans>Nouns DAO</Trans>}
+                buttonText={<Trans>Nouns</Trans>}
                 buttonIcon={<FontAwesomeIcon icon={faUsers} />}
                 buttonStyle={nonWalletButtonStyle}
               />
@@ -86,6 +89,13 @@ const NavBar = () => {
                 buttonStyle={nonWalletButtonStyle}
               />
             </Nav.Link>
+            <Nav.Link as={Link} to="/tracker" className={classes.nounsNavLink}>
+              <NavBarButton
+                buttonText={<Trans>Tracker</Trans>}
+                buttonIcon={<FontAwesomeIcon icon={faCrosshairs} />}
+                buttonStyle={nonWalletButtonStyle}
+              />
+            </Nav.Link>
             <Nav.Link as={Link} to="/playground" className={classes.nounsNavLink}>
               <NavBarButton
                 buttonText={<Trans>Playground</Trans>}
@@ -93,7 +103,6 @@ const NavBar = () => {
                 buttonStyle={nonWalletButtonStyle}
               />
             </Nav.Link>
-            <NavLocaleSwitcher buttonStyle={nonWalletButtonStyle} />
             <NavWallet address={activeAccount || '0'} buttonStyle={nonWalletButtonStyle} />{' '}
           </Navbar.Collapse>
         </Container>
