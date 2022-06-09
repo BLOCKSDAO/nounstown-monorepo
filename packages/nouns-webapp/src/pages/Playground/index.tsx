@@ -20,6 +20,8 @@ import NounModal from './NounModal';
 import { PNG } from 'pngjs';
 import { Trans } from '@lingui/macro';
 import { i18n } from '@lingui/core';
+import { setStateBackgroundColor } from '../../state/slices/application';
+import { useAppDispatch } from '../../hooks';
 
 interface Trait {
   title: string;
@@ -97,6 +99,9 @@ const Playground: React.FC = () => {
   const [pendingTrait, setPendingTrait] = useState<PendingCustomTrait>();
   const [isPendingTraitValid, setPendingTraitValid] = useState<boolean>();
 
+  const dispatch = useAppDispatch();
+  dispatch(setStateBackgroundColor(''));
+  
   const customTraitFileRef = useRef<HTMLInputElement>(null);
 
   const generateNounSvg = React.useCallback(

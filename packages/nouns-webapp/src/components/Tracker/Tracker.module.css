@@ -1,0 +1,42 @@
+.shortAddress {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.shortAddress > div {
+  padding-top: -2px;
+}
+
+.shortAddress span {
+  letter-spacing: 0.2px;
+  font-family: 'PT Root UI';
+  font-weight: bold;
+}
+
+.nounImg {
+  border-radius: 16px;
+}
+.nounImg:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+}
+.nounWrapper {
+  margin-bottom: 1rem;
+}
+
+.currentBidCol {
+	/*text-align: center;*/
+}
+
+.whiteInfo {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgb(95, 95, 95);
+}
+
+.whiteInfo:hover {
+  background-color: #e2e3e8;
+  color: black;
+}
