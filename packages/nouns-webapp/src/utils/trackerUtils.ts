@@ -63,3 +63,25 @@ export async function getLastAuctionBids(subgraphApiUri: string): Promise<GraphA
   );
   return res.auctions[0];
 }
+
+/**
+ * Query the subgraph and return the recent auction data to show stats.
+ * @param subgraphApiUri The token subgraph api uri
+ * @returns The most recent auctions and final bids from the subgraph.
+ */
+export async function getRecenttAuctionBids(subgraphApiUri: string): Promise<GraphAuction[]> {
+  const res = await request<{ auctions: GraphAuction[] }>(
+    subgraphApiUri,
+    gql`
+      query {
+		  auctions(orderBy: startTime, orderDirection: desc, first: 16) {
+		    id
+		    bids(orderBy: blockNumber, orderDirection: desc, first: 1) {
+		      amount
+		    }
+		  }
+      }
+    `,
+  );
+  return res.auctions;
+}

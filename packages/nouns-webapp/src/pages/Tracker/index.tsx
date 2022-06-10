@@ -25,7 +25,7 @@ const TrackerPage = () => {
 	    </h1>
 	    Track all your favorites Nouns auctions on one page. <strong>Note: The Auction Tracker is in BETA.</strong>
 	    <br />
-	    <span style={{ fontStyle: 'italic', fontSize: 'small' }}>Data refreshes every 30 seconds -- if &lt; 5 minutes remaining, data refreshes every 10 seconds</span>
+	    <span style={{ fontStyle: 'italic', fontSize: 'small' }}>Data refreshes every 30 seconds -- if &lt; 5 minutes remaining, data refreshes every 10 seconds. Stats are from last 15 auctions.</span>
 	    <br />
 	    <br />
 

@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import classes from './Tracker.module.css';
 import { Row, Col, Button } from 'react-bootstrap';
-import { getLastAuctionBids, getNounSVGBuffer } from '../../utils/trackerUtils';
+import { getLastAuctionBids, getNounSVGBuffer, getRecenttAuctionBids } from '../../utils/trackerUtils';
 import { GraphAuction } from '../../utils/trackerTypes';
 import TrackerAuctionTimer from '../TrackerAuctionTimer';
 import TrackerWinner from '../TrackerWinner';
 import Noun from '../Noun';
 import TrackerCurrentBid from '../TrackerCurrentBid';
+import TruncatedAmount from '../TruncatedAmount';
 import BigNumber from 'bignumber.js';
 
 const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgraphApiUri: string }> = props => {
@@ -17,6 +18,8 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
   
   const [auctionGraph, setAuctionGraph] = useState<GraphAuction | null>();
   const [auctionSVG, setAuctionSVG] = useState<Buffer | null>();
+  const [auctionStats, setAuctionStats] = useState<GraphAuction[] | null>();
+
   const [auctionId, setAuctionId] = useState('');
   const [auctionBidderId, setAuctionBidderId] = useState('0x0000000000000000000000000000000000000000');
   const [auctionBidderAmount, setAuctionBidderAmount] = useState(new BigNumber(0));
@@ -55,7 +58,7 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
   	if ((auctionGraph.bids.length > 0) && (auctionBidderId !== auctionGraph.bids[0].bidder.id)) {
   		console.log('New bidder id', auctionBidderId, auctionGraph.bids[0].bidder.id, auctionGraph.bids[0].amount.toString());
 	    if (notificationToggle && !initLoad) {
-	    	const message = 'New Bid Placed: ' + name;
+	    	const message = 'New Bid Placed: ' + name + ' ' + auctionGraph.id.toString();
 	    	var bidderNotification = new Notification(message);
 	    	console.log('New Bidder Notification', bidderNotification);
 	    }
@@ -65,7 +68,7 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
   	}
   }
 
-
+  //load up the Noun item image, only when there's a new auctionId
   useEffect(() => {
     const loadSVG = async () => {
       setAuctionSVG(await getNounSVGBuffer(tokenAddress, auctionId));
@@ -75,6 +78,18 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
     return () => {
     };
   }, [tokenAddress, auctionId]);
+
+  //load up the Noun item stat, only when there's a new auctionId
+  useEffect(() => {
+    const loadStats = async () => {
+      setAuctionStats(await getRecenttAuctionBids(subgraphApiUri));
+    };
+    loadStats();
+
+
+    return () => {
+    };
+  }, [subgraphApiUri, auctionId]);
     
   /*
   const [showBidHistoryModal, setShowBidHistoryModal] = useState(false);
@@ -117,6 +132,22 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
   
   if (!auctionGraph) return null;
   
+  var statsSum = new BigNumber(0);
+  var statsAvg = new BigNumber(0);
+  
+  if (auctionStats) {
+    //skip the first one, will be current one...
+  	for(var i=1; i < auctionStats.length; i++){
+  		const auctionItem = auctionStats[i];
+  		if (auctionItem.bids.length > 0) {
+  			statsSum = statsSum.plus(new BigNumber(auctionItem.bids[0].amount.toString()));
+  		}
+  	}
+  	if (statsSum) {
+  		statsAvg = statsSum.dividedBy(new BigNumber(auctionStats.length));
+  	}
+  }
+  
   const handleNotificationChange = () => {
   	//enable notifications
   	if (notificationToggle === false) {
@@ -152,7 +183,24 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
 	            currentBid={auctionBidderAmount}
 	            auctionEnded={auctionEnded}
 	          />
-	          <div className={classes.verifyButtonWrapper} style={{ textAlign: 'center' }}>
+	          
+	          <div className={classes.verifyButtonWrapper} style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 'small' }}>
+		      	<br />&nbsp;
+	            <br />
+		        Average:
+		        <br />
+		        <TruncatedAmount amount={statsAvg && statsAvg} />
+		      </div>
+
+	          	
+	        </Col>
+	        <Col lg={5} className={classes.currentBidderCol}>
+	        	<TrackerWinner winner={auctionBidderId} auctionEnded={auctionEnded} />
+	        </Col>
+	        <Col lg={3} className={classes.auctionTimerCol}>
+			    <TrackerAuctionTimer auctionGraph={auctionGraph} auctionEnded={auctionEnded} />
+
+	          <div className={classes.verifyButtonWrapper} style={{ textAlign: 'left' }}>
 	            <br />
 	          	<a href={uri} target="_blank" rel="noreferrer">
 	            	<Button className={classes.whiteInfo}>View</Button>
@@ -170,13 +218,8 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
 	            <br />&nbsp;
 	            <br />
 	          </div>
-	
-	        </Col>
-	        <Col lg={4} className={classes.currentBidderCol}>
-	        	<TrackerWinner winner={auctionBidderId} auctionEnded={auctionEnded} />
-	        </Col>
-	        <Col lg={4} className={classes.auctionTimerCol}>
-			    <TrackerAuctionTimer auctionGraph={auctionGraph} auctionEnded={auctionEnded} />
+			    
+			    			    
 	        </Col>        
 	      </Row>
 
