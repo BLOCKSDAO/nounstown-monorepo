@@ -20,8 +20,11 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
   const [auctionId, setAuctionId] = useState('');
   const [auctionBidderId, setAuctionBidderId] = useState('0x0000000000000000000000000000000000000000');
   const [auctionBidderAmount, setAuctionBidderAmount] = useState(new BigNumber(0));
+  
+  const [notificationToggle, setNotificationToggle] = useState(false);
     
   useEffect(() => {
+    
     const loadGraph = async () => {
       setAuctionGraph(await getLastAuctionBids(subgraphApiUri));
     };
@@ -32,8 +35,16 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
   }, [subgraphApiUri, auctionTimer]);
     
   if (auctionGraph) {
+  	const initLoad = (auctionId === '') ? true : false;  	
+  
   	if (auctionId !== auctionGraph.id.toString()) {
   		console.log('New auction id', auctionId, auctionGraph.id.toString());
+	    if (notificationToggle && !initLoad) {
+	    	const message = 'New Auction Discovered: ' + name + ' ' + auctionGraph.id.toString();
+	    	var auctionNotification = new Notification(message);
+	    	console.log('New Auction Notification', auctionNotification);
+	    }
+  		
   		setAuctionId(auctionGraph.id.toString());
   		
   		//reset the bidder and amount on new auction
@@ -43,6 +54,11 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
   	
   	if ((auctionGraph.bids.length > 0) && (auctionBidderId !== auctionGraph.bids[0].bidder.id)) {
   		console.log('New bidder id', auctionBidderId, auctionGraph.bids[0].bidder.id, auctionGraph.bids[0].amount.toString());
+	    if (notificationToggle && !initLoad) {
+	    	const message = 'New Bid Placed: ' + name;
+	    	var bidderNotification = new Notification(message);
+	    	console.log('New Bidder Notification', bidderNotification);
+	    }
   		
   		setAuctionBidderId(auctionGraph.bids[0].bidder.id);
   		setAuctionBidderAmount(new BigNumber(auctionGraph.bids[0].amount.toString()));
@@ -77,7 +93,7 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
     if (!auctionGraph) return;
 
     const timeLeft = Number(auctionGraph.endTime) - Math.floor(Date.now() / 1000);
-
+    
     if (auctionGraph && timeLeft <= 0) {
       setAuctionEnded(true);
     } else {
@@ -96,9 +112,26 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
         clearTimeout(timer);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auctionTimer, auctionGraph]);
   
-  if (!auctionGraph) return null;  
+  if (!auctionGraph) return null;
+  
+  const handleNotificationChange = () => {
+  	//enable notifications
+  	if (notificationToggle === false) {
+	    if (!("Notification" in window)) {
+	      console.log("This browser does not support desktop notification");
+	    } else {
+		    Notification.requestPermission().then(function(result) {
+			  console.log(result);
+			});
+		}
+  	}
+
+	setNotificationToggle(!notificationToggle);
+  };  	
+
 
     return (
 
@@ -124,6 +157,16 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
 	          	<a href={uri} target="_blank" rel="noreferrer">
 	            	<Button className={classes.whiteInfo}>View</Button>
 	            </a>
+	            <br />&nbsp;
+	            <br />
+	            <span style={{ fontStyle: 'bold', fontSize: 'medium' }}>
+	            Notifications&nbsp;
+	            <input type="checkbox" 
+				   name={'notifications'} 
+				   defaultChecked={notificationToggle} 
+				   value={'notifications1'}
+				   onChange={ handleNotificationChange } />
+				</span>
 	            <br />&nbsp;
 	            <br />
 	          </div>
