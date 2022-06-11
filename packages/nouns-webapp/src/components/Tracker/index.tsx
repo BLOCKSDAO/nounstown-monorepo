@@ -1,31 +1,48 @@
 import { useState, useEffect } from 'react';
 import classes from './Tracker.module.css';
 import { Row, Col, Button } from 'react-bootstrap';
-import { getLastAuctionBids, getNounSVGBuffer, getRecenttAuctionBids } from '../../utils/trackerUtils';
-import { GraphAuction } from '../../utils/trackerTypes';
+import { getNounSVGBuffer, getRecenttAuctionBids, getAuction, getBlockNumber } from '../../utils/trackerUtils';
+import { GraphAuction, ContractAuction } from '../../utils/trackerTypes';
 import TrackerAuctionTimer from '../TrackerAuctionTimer';
+import TrackerAuctionTimerBlock from '../TrackerAuctionTimerBlock';
 import TrackerWinner from '../TrackerWinner';
 import Noun from '../Noun';
 import TrackerCurrentBid from '../TrackerCurrentBid';
 import TruncatedAmount from '../TruncatedAmount';
 import BigNumber from 'bignumber.js';
+//import { Auction, AuctionHouseContractFunction } from '../../wrappers/trackerAuction';
+//import { useAuction, useAuctionMinBidIncPercentage } from '../../wrappers/trackerAuction';
 
-const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgraphApiUri: string }> = props => {
-  const { name, uri, tokenAddress, subgraphApiUri } = props;
+const Tracker: React.FC<{ 
+	name: string; 
+	uri: string; 
+	tokenAddress: string; 
+	auctionHouseProxyAddress: string; 
+	subgraphApiUri: string; 
+	tokenSVGFunction?: string;
+	subgraphType?: string;
+	timerType?: string;
+	}> = props => {
+  const { name, uri, tokenAddress, auctionHouseProxyAddress, subgraphApiUri, tokenSVGFunction, subgraphType, timerType } = props;
 
   const [auctionEnded, setAuctionEnded] = useState(false);
   const [auctionTimer, setAuctionTimer] = useState(false);
+  const [blockNumber, setBlockNumber] = useState<number | null>();
+  const [blocksLeft, setBlocksLeft] = useState(new BigNumber(0));
   
-  const [auctionGraph, setAuctionGraph] = useState<GraphAuction | null>();
+  //const [auctionGraph, setAuctionGraph] = useState<GraphAuction | null>();
   const [auctionSVG, setAuctionSVG] = useState<Buffer | null>();
   const [auctionStats, setAuctionStats] = useState<GraphAuction[] | null>();
+
+  const [auctionContract, setAuctionContract] = useState<ContractAuction | null>();
 
   const [auctionId, setAuctionId] = useState('');
   const [auctionBidderId, setAuctionBidderId] = useState('0x0000000000000000000000000000000000000000');
   const [auctionBidderAmount, setAuctionBidderAmount] = useState(new BigNumber(0));
   
-  const [notificationToggle, setNotificationToggle] = useState(false);
+  const [notificationToggle, setNotificationToggle] = useState(false);    
     
+  /*
   useEffect(() => {
     
     const loadGraph = async () => {
@@ -36,59 +53,75 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
     return () => {
     };
   }, [subgraphApiUri, auctionTimer]);
+  */
+
+  useEffect(() => {
     
-  if (auctionGraph) {
+    const loadContract = async () => {
+		setAuctionContract(await getAuction(auctionHouseProxyAddress));	    	
+    };
+    loadContract();
+    
+
+    return () => {
+    };
+  }, [auctionHouseProxyAddress, auctionTimer]);
+
+      
+  if (auctionContract) {
   	const initLoad = (auctionId === '') ? true : false;  	
   
-  	if (auctionId !== auctionGraph.id.toString()) {
-  		console.log('New auction id', auctionId, auctionGraph.id.toString());
+  	if (auctionId !== auctionContract.nounId.toString()) {
+  		console.log('New auction id', auctionId, auctionContract.nounId.toString());
 	    if (notificationToggle && !initLoad) {
-	    	const message = 'New Auction Discovered: ' + name + ' ' + auctionGraph.id.toString();
+	    	const message = 'New Auction Discovered: ' + name + ' ' + auctionContract.nounId.toString();
 	    	var auctionNotification = new Notification(message);
 	    	console.log('New Auction Notification', auctionNotification);
 	    }
   		
-  		setAuctionId(auctionGraph.id.toString());
+  		setAuctionId(auctionContract.nounId.toString());
   		
   		//reset the bidder and amount on new auction
   		setAuctionBidderId('0x0000000000000000000000000000000000000000');
   		setAuctionBidderAmount(new BigNumber(0));
   	}
   	
-  	if ((auctionGraph.bids.length > 0) && (auctionBidderId !== auctionGraph.bids[0].bidder.id)) {
-  		console.log('New bidder id', auctionBidderId, auctionGraph.bids[0].bidder.id, auctionGraph.bids[0].amount.toString());
+  	if (auctionContract.bidder && (auctionBidderId !== auctionContract.bidder)) {
+  		console.log('New bidder id', auctionBidderId, auctionContract.bidder, auctionContract.amount.toString());
 	    if (notificationToggle && !initLoad) {
-	    	const message = 'New Bid Placed: ' + name + ' ' + auctionGraph.id.toString();
+	    	const message = 'New Bid Placed: ' + name + ' ' + auctionContract.nounId.toString();
 	    	var bidderNotification = new Notification(message);
 	    	console.log('New Bidder Notification', bidderNotification);
 	    }
   		
-  		setAuctionBidderId(auctionGraph.bids[0].bidder.id);
-  		setAuctionBidderAmount(new BigNumber(auctionGraph.bids[0].amount.toString()));
+  		setAuctionBidderId(auctionContract.bidder);
+  		setAuctionBidderAmount(new BigNumber(auctionContract.amount.toString()));
   	}
   }
 
   //load up the Noun item image, only when there's a new auctionId
   useEffect(() => {
     const loadSVG = async () => {
-      setAuctionSVG(await getNounSVGBuffer(tokenAddress, auctionId));
+      setAuctionSVG(await getNounSVGBuffer(tokenAddress, auctionId, tokenSVGFunction));
     };
     loadSVG();
 
     return () => {
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tokenAddress, auctionId]);
 
   //load up the Noun item stat, only when there's a new auctionId
   useEffect(() => {
     const loadStats = async () => {
-      setAuctionStats(await getRecenttAuctionBids(subgraphApiUri));
+      setAuctionStats(await getRecenttAuctionBids(subgraphApiUri, subgraphType));
     };
     loadStats();
 
 
     return () => {
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subgraphApiUri, auctionId]);
     
   /*
@@ -105,32 +138,74 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
   // timer logic - check auction status every 30 seconds, until five minutes remain, then check status every second
   // change to check every 10 seconds on < 5 minutes
   useEffect(() => {
-    if (!auctionGraph) return;
+    if (!auctionContract) return;
+	
+	if (timerType === 'blocks') {
+		//blocks based end time
+		const endBlock = auctionContract.endTime;
 
-    const timeLeft = Number(auctionGraph.endTime) - Math.floor(Date.now() / 1000);
-    
-    if (auctionGraph && timeLeft <= 0) {
-      setAuctionEnded(true);
-    } else {
-      setAuctionEnded(false);
-    }
-    
-    if (true) { //always run
-      const timer = setTimeout(
-        () => {
-          setAuctionTimer(!auctionTimer);
-        },
-        (timeLeft > 300 || timeLeft <= 0) ? 30000 : 10000,
-      );
+	    const loadBlockNumber = async () => {
+	      setBlockNumber(await getBlockNumber());
+	    };
+	    loadBlockNumber();
+	    
+	    if (blockNumber) {
 
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auctionTimer, auctionGraph]);
+	    	const tempBlockNumber = new BigNumber(blockNumber.toString());
+	    	const tempEndBlock = new BigNumber(endBlock.toString());
+	    	
+		    if (tempEndBlock.lte(tempBlockNumber)) {
+		      setAuctionEnded(true);
+		    } else {
+		      setAuctionEnded(false);
+		    }
+		    
+		    setBlocksLeft(tempEndBlock.minus(tempBlockNumber));
+	    }
+
+		const timeLeft = 0;
+	    if (true) { //always run
+	      const timer = setTimeout(
+	        () => {
+	          setAuctionTimer(!auctionTimer);
+	        },
+	        (timeLeft > 300 || timeLeft <= 0) ? 30000 : 10000,
+	      );
+	
+	      return () => {
+	        clearTimeout(timer);
+	      };
+	    }	
+
+	
+	} else {
+		//time based end time
+
+	    const timeLeft = Number(auctionContract.endTime) - Math.floor(Date.now() / 1000);
+		    
+	    if (auctionContract && timeLeft <= 0) {
+	      setAuctionEnded(true);
+	    } else {
+	      setAuctionEnded(false);
+	    }
+	    
+	    if (true) { //always run
+	      const timer = setTimeout(
+	        () => {
+	          setAuctionTimer(!auctionTimer);
+	        },
+	        (timeLeft > 300 || timeLeft <= 0) ? 30000 : 10000,
+	      );
+	
+	      return () => {
+	        clearTimeout(timer);
+	      };
+	    }	
+	}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auctionTimer, auctionContract]);
   
-  if (!auctionGraph) return null;
+  if (!auctionContract) return null;
   
   var statsSum = new BigNumber(0);
   var statsAvg = new BigNumber(0);
@@ -139,12 +214,19 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
     //skip the first one, will be current one...
   	for(var i=1; i < auctionStats.length; i++){
   		const auctionItem = auctionStats[i];
-  		if (auctionItem.bids.length > 0) {
-  			statsSum = statsSum.plus(new BigNumber(auctionItem.bids[0].amount.toString()));
-  		}
+  		if (subgraphType === 'flat') {
+  			if (typeof auctionItem.value != 'undefined') {
+	  			statsSum = statsSum.plus(new BigNumber(auctionItem.value.toString()));
+	  		}
+  		} else {
+	  		if (auctionItem.bids.length > 0) {
+	  			statsSum = statsSum.plus(new BigNumber(auctionItem.bids[0].amount.toString()));
+	  		}
+	  	}
   	}
   	if (statsSum) {
   		statsAvg = statsSum.dividedBy(new BigNumber(auctionStats.length));
+  		statsAvg = new BigNumber(statsAvg.toFixed(0));
   	}
   }
   
@@ -162,7 +244,6 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
 
 	setNotificationToggle(!notificationToggle);
   };  	
-
 
     return (
 
@@ -183,14 +264,14 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
 	            currentBid={auctionBidderAmount}
 	            auctionEnded={auctionEnded}
 	          />
+		      <br />
 	          
 	          <div className={classes.verifyButtonWrapper} style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 'small' }}>
-		      	<br />&nbsp;
-	            <br />
 		        Average:
 		        <br />
 		        <TruncatedAmount amount={statsAvg && statsAvg} />
 		      </div>
+		      <br />
 
 	          	
 	        </Col>
@@ -198,9 +279,14 @@ const Tracker: React.FC<{ name: string; uri: string; tokenAddress: string; subgr
 	        	<TrackerWinner winner={auctionBidderId} auctionEnded={auctionEnded} />
 	        </Col>
 	        <Col lg={3} className={classes.auctionTimerCol}>
-			    <TrackerAuctionTimer auctionGraph={auctionGraph} auctionEnded={auctionEnded} />
+	        
+	        {timerType === 'blocks' ? (	        
+			    <TrackerAuctionTimerBlock auctionContract={auctionContract} auctionEnded={auctionEnded} blocksLeft={blocksLeft} />
+      		) : (	        
+			    <TrackerAuctionTimer auctionContract={auctionContract} auctionEnded={auctionEnded} />
+      		)}
 
-	          <div className={classes.verifyButtonWrapper} style={{ textAlign: 'left' }}>
+	          <div className={classes.verifyButtonWrapper} >
 	            <br />
 	          	<a href={uri} target="_blank" rel="noreferrer">
 	            	<Button className={classes.whiteInfo}>View</Button>

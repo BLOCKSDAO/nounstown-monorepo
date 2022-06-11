@@ -2,22 +2,23 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 /*import { Auction } from '../../wrappers/nounsAuction';*/
 import { ContractAuction } from '../../utils/trackerTypes';
-import classes from './TrackerAuctionTimer.module.css';
-import { useState, useEffect, useRef } from 'react';
+import classes from './TrackerAuctionTimerBlock.module.css';
 import { Row, Col } from 'react-bootstrap';
 import { useAppSelector } from '../../hooks';
 import clsx from 'clsx';
 import { Trans } from '@lingui/macro';
-import { i18n } from '@lingui/core';
+import BigNumber from 'bignumber.js';
 
 dayjs.extend(duration);
 
-const TrackerAuctionTimer: React.FC<{
+const TrackerAuctionTimerBlock: React.FC<{
   auctionContract: ContractAuction;
   auctionEnded: boolean;
+  blocksLeft: BigNumber;
 }> = props => {
-  const { auctionContract, auctionEnded } = props;
+  const { auctionContract, auctionEnded, blocksLeft } = props;
 
+  /*
   const [auctionTimer, setAuctionTimer] = useState(0);
   const [timerToggle, setTimerToggle] = useState(true);
 
@@ -26,7 +27,9 @@ const TrackerAuctionTimer: React.FC<{
 
   const timerDuration = dayjs.duration(auctionTimerRef.current, 's');
   const endTimeUnix = Math.floor(Date.now() / 1000) + auctionTimerRef.current;
+  */
 
+  /*
   // timer logic
   useEffect(() => {
     const timeLeft = (auctionContract && Number(auctionContract.endTime)) - dayjs().unix();
@@ -45,6 +48,7 @@ const TrackerAuctionTimer: React.FC<{
       };
     }
   }, [auctionContract, auctionTimer]);
+  */
 
   const auctionContentLong = auctionEnded ? (
     <Trans>Auction ended</Trans>
@@ -57,8 +61,8 @@ const TrackerAuctionTimer: React.FC<{
     <Trans>Time left</Trans>
   );
 
-  const flooredMinutes = Math.floor(timerDuration.minutes());
-  const flooredSeconds = Math.floor(timerDuration.seconds());
+  //const flooredMinutes = Math.floor(timerDuration.minutes());
+  //const flooredSeconds = Math.floor(timerDuration.seconds());
   const isCool = useAppSelector(state => state.application.isCoolBackground); //not really used right now...
 
   if (!auctionContract) return null;
@@ -66,30 +70,24 @@ const TrackerAuctionTimer: React.FC<{
   return (
     <Row
       className={clsx(classes.wrapper, classes.section)}
-      onClick={() => setTimerToggle(!timerToggle)}
     >
-      <Col xs={timerToggle ? 4 : 6} lg={12} className={classes.leftCol}>
+      <Col xs={true ? 4 : 6} lg={12} className={classes.leftCol}>
         <h4
           style={{
             color: isCool ? '#a3efd0' : '#a3efd0',
           }}
         >
-          {timerToggle ? (
+          {true && (
             window.innerWidth < 992 ? (
               auctionContentShort
             ) : (
               auctionContentLong
             )
-          ) : (
-            <>
-              <Trans>Ends on</Trans> {i18n.date(new Date(endTimeUnix * 1000), { month: 'short' })}{' '}
-              {i18n.date(new Date(endTimeUnix * 1000), { day: 'numeric' })} <Trans>at</Trans>
-            </>
-          )}
+          ) }
         </h4>
       </Col>
       <Col xs="auto" lg={12}>
-        {timerToggle ? (
+        {true && (
           <h2
             className={clsx(classes.timerWrapper, classes.timeLeft)}
             style={{
@@ -98,44 +96,14 @@ const TrackerAuctionTimer: React.FC<{
           >
             <div className={classes.timerSection}>
               <span>
-                {`${Math.floor(timerDuration.hours())}`}
-                <span className={classes.small}>
-                  <Trans>h</Trans>
-                </span>
-              </span>
-            </div>
-            <div className={classes.timerSection}>
-              <span>
-                {`${flooredMinutes}`}
-                <span className={classes.small}>
-                  <Trans>m</Trans>
-                </span>
-              </span>
-            </div>
-            <div className={classes.timerSectionFinal}>
-              <span>
-                {`${flooredSeconds}`}
-                <span className={classes.small}>
-                  <Trans>s</Trans>
-                </span>
+              {blocksLeft.toString()} Blocks
               </span>
             </div>
           </h2>
-        ) : (
-          <h2
-            className={classes.timerWrapper}
-            style={{
-              color: isCool ? 'white' : 'white',
-            }}
-          >
-            <div className={clsx(classes.timerSection, classes.clockSection)}>
-              <span>{i18n.date(new Date(endTimeUnix * 1000), { timeStyle: 'medium' })}</span>
-            </div>
-          </h2>
-        )}
+        ) }
       </Col>
     </Row>
   );
 };
 
-export default TrackerAuctionTimer;
+export default TrackerAuctionTimerBlock;

@@ -82,7 +82,7 @@ const TrackerWinner: React.FC<TrackerWinnerProps> = props => {
           </h2>
         </Col>
       </Row>
-      {isWinnerYou && isMobile && (
+      {isWinnerYou && isMobile && false && (
         <Row>
           <a
             href="/nounies"
