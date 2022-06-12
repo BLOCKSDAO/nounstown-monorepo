@@ -23,9 +23,9 @@ const TrackerPage = () => {
 	    <h1 style={{ marginBottom: '2rem' }}>
 	      Nouns Auction Tracker
 	    </h1>
-	    Track all your favorites Nouns auctions on one page. <strong>Note: The Auction Tracker is in BETA.</strong>
+	    Track all your favorite Nounish auctions on one page. <strong>Note: The Auction Tracker is in BETA.</strong>
 	    <br />
-	    <span style={{ fontStyle: 'italic', fontSize: 'small' }}>Data refreshes every 30 seconds -- if &lt; 5 minutes remaining, data refreshes every 10 seconds. Stats are from last 25 auctions.</span>
+	    <span style={{ fontStyle: 'italic', fontSize: 'small' }}>Data refreshes every 30 seconds -- if &lt; 5 minutes remaining, data refreshes every 10 seconds.</span>
 	    <br />
 	    <br />
 
@@ -53,6 +53,15 @@ const TrackerPage = () => {
 	    </div>
 	
       ))}
+
+    <div className={classes.wrapper}>
+      <Container fluid="xl" style={{ }}>
+	    <br />
+
+	    <span style={{ fontStyle: 'italic', fontSize: 'small' }}>* All stats are from last 25 auctions</span>
+
+      </Container>
+    </div>
 
     </Section>
 

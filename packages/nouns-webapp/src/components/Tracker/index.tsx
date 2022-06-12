@@ -142,41 +142,23 @@ const Tracker: React.FC<{
 	
 	if (timerType === 'blocks') {
 		//blocks based end time
-		const endBlock = auctionContract.endTime;
 
 	    const loadBlockNumber = async () => {
 	      setBlockNumber(await getBlockNumber());
 	    };
 	    loadBlockNumber();
-	    
-	    if (blockNumber) {
 
-	    	const tempBlockNumber = new BigNumber(blockNumber.toString());
-	    	const tempEndBlock = new BigNumber(endBlock.toString());
-	    	
-		    if (tempEndBlock.lte(tempBlockNumber)) {
-		      setAuctionEnded(true);
-		    } else {
-		      setAuctionEnded(false);
-		    }
-		    
-		    setBlocksLeft(tempEndBlock.minus(tempBlockNumber));
-	    }
-
-		const timeLeft = 0;
-	    if (true) { //always run
+	      //check every 30 seconds
 	      const timer = setTimeout(
 	        () => {
 	          setAuctionTimer(!auctionTimer);
 	        },
-	        (timeLeft > 300 || timeLeft <= 0) ? 30000 : 10000,
+	        30000,
 	      );
 	
 	      return () => {
 	        clearTimeout(timer);
 	      };
-	    }	
-
 	
 	} else {
 		//time based end time
@@ -204,6 +186,28 @@ const Tracker: React.FC<{
 	}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auctionTimer, auctionContract]);
+
+
+  //check block number against blocks left
+  useEffect(() => {
+	if (!auctionContract) return;
+	
+    if (blockNumber) {
+    	const endBlock = auctionContract.endTime;
+    	
+    	const tempBlockNumber = new BigNumber(blockNumber.toString());
+    	const tempEndBlock = new BigNumber(endBlock.toString());
+    	
+	    if (tempEndBlock.lte(tempBlockNumber)) {
+	      setAuctionEnded(true);
+	    } else {
+	      setAuctionEnded(false);
+	    }
+	    
+	    setBlocksLeft(tempEndBlock.minus(tempBlockNumber));
+    }
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [blockNumber]);
   
   if (!auctionContract) return null;
   
@@ -269,7 +273,7 @@ const Tracker: React.FC<{
 	          <div className={classes.verifyButtonWrapper} style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 'small' }}>
 		        Average:
 		        <br />
-		        <TruncatedAmount amount={statsAvg && statsAvg} />
+		        <TruncatedAmount amount={statsAvg && statsAvg} /> *
 		      </div>
 		      <br />
 

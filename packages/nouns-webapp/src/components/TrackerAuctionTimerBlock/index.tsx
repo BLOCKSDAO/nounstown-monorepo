@@ -66,7 +66,7 @@ const TrackerAuctionTimerBlock: React.FC<{
   const isCool = useAppSelector(state => state.application.isCoolBackground); //not really used right now...
 
   if (!auctionContract) return null;
-
+  
   return (
     <Row
       className={clsx(classes.wrapper, classes.section)}
@@ -95,9 +95,13 @@ const TrackerAuctionTimerBlock: React.FC<{
             }}
           >
             <div className={classes.timerSection}>
-              <span>
-              {blocksLeft.toString()} Blocks
-              </span>
+
+		        {(auctionEnded || blocksLeft.lte(new BigNumber(0))) ? (	        
+				    <span>--- Blocks</span>
+	      		) : (	        
+	          		<span>{blocksLeft.toString()} Blocks</span>
+	      		)}
+
             </div>
           </h2>
         ) }
