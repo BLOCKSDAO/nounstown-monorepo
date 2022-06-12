@@ -18,12 +18,16 @@ const Tracker: React.FC<{
 	uri: string; 
 	tokenAddress: string; 
 	auctionHouseProxyAddress: string; 
-	subgraphApiUri: string; 
+	subgraphApiUri?: string; 
 	tokenSVGFunction?: string;
 	subgraphType?: string;
 	timerType?: string;
+	auctionHouseFixedParam?: number;
 	}> = props => {
-  const { name, uri, tokenAddress, auctionHouseProxyAddress, subgraphApiUri, tokenSVGFunction, subgraphType, timerType } = props;
+  const { 
+  	name, uri, tokenAddress, auctionHouseProxyAddress, subgraphApiUri, 
+  	tokenSVGFunction, subgraphType, timerType, auctionHouseFixedParam 
+  } = props;
 
   const [auctionEnded, setAuctionEnded] = useState(false);
   const [auctionTimer, setAuctionTimer] = useState(false);
@@ -58,13 +62,14 @@ const Tracker: React.FC<{
   useEffect(() => {
     
     const loadContract = async () => {
-		setAuctionContract(await getAuction(auctionHouseProxyAddress));	    	
+		setAuctionContract(await getAuction(auctionHouseProxyAddress, auctionHouseFixedParam));	    	
     };
     loadContract();
     
 
     return () => {
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auctionHouseProxyAddress, auctionTimer]);
 
       
@@ -114,10 +119,11 @@ const Tracker: React.FC<{
   //load up the Noun item stat, only when there's a new auctionId
   useEffect(() => {
     const loadStats = async () => {
-      setAuctionStats(await getRecenttAuctionBids(subgraphApiUri, subgraphType));
-    };
-    loadStats();
-
+      if (typeof subgraphApiUri != "undefined") {
+	      setAuctionStats(await getRecenttAuctionBids(subgraphApiUri, subgraphType));
+	  }
+    };    
+	loadStats();
 
     return () => {
     };
@@ -270,13 +276,15 @@ const Tracker: React.FC<{
 	          />
 		      <br />
 	          
-	          <div className={classes.verifyButtonWrapper} style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 'small' }}>
-		        Average:
-		        <br />
-		        <TruncatedAmount amount={statsAvg && statsAvg} /> *
-		      </div>
-		      <br />
+	          {auctionStats && (
+		          <div className={classes.verifyButtonWrapper} style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 'small' }}>
+			        Average:
+			        <br />
+			        <TruncatedAmount amount={statsAvg && statsAvg} /> *
+			      </div>
+		     )}
 
+		      <br />
 	          	
 	        </Col>
 	        <Col lg={5} className={classes.currentBidderCol}>

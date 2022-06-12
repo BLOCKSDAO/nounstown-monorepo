@@ -52,6 +52,42 @@ export const trackerConfig = [
     handle: 'nounstown',
     backgroundColor: ''
   },  
+  {
+    name: 'Wizard',
+    uri: 'https://wizardsdao.com/auction/1',
+    tokenAddress: '0xc23b12eba3af92dc3ec94744c0c260cad0eed0e5',
+    auctionHouseProxyAddress: '0x418cbb82f7472b321c2c5ccf76b8d9b6df47daba',
+    auctionHouseFixedParam: 1,
+    subgraphApiUri: 'https://api.thegraph.com/subgraphs/name/cryptosnowmickey/gnars-subgraph',
+    subgraphType: 'flat',
+    description: 'Wizard DAO',
+    handle: 'WizardsDAO',
+    backgroundColor: '#eed8ab'
+  },
+  {
+    name: 'Wizard',
+    uri: 'https://wizardsdao.com/auction/2',
+    tokenAddress: '0xc23b12eba3af92dc3ec94744c0c260cad0eed0e5',
+    auctionHouseProxyAddress: '0x418cbb82f7472b321c2c5ccf76b8d9b6df47daba',
+    auctionHouseFixedParam: 2,
+    subgraphApiUri: 'https://api.thegraph.com/subgraphs/name/cryptosnowmickey/gnars-subgraph',
+    subgraphType: 'flat',
+    description: 'Wizard DAO',
+    handle: 'WizardsDAO',
+    backgroundColor: '#eed8ab'
+  },
+  {
+    name: 'Wizard',
+    uri: 'https://wizardsdao.com/auction/3',
+    tokenAddress: '0xc23b12eba3af92dc3ec94744c0c260cad0eed0e5',
+    auctionHouseProxyAddress: '0x418cbb82f7472b321c2c5ccf76b8d9b6df47daba',
+    auctionHouseFixedParam: 3,
+    subgraphApiUri: 'https://api.thegraph.com/subgraphs/name/cryptosnowmickey/gnars-subgraph',
+    subgraphType: 'flat',
+    description: 'Wizard DAO',
+    handle: 'WizardsDAO',
+    backgroundColor: '#eed8ab'
+  },  
 ];
 
 export default trackerConfig;

@@ -4,28 +4,49 @@ import { NounsTokenABI } from '@nouns/contracts';
 import { NounsAuctionHouseABI } from '@nouns/sdk';
 import { request, gql } from 'graphql-request'
 import { TokenMetadata, GraphAuction, ContractAuction } from './trackerTypes';
+import NounsFrensAuctionHouseABI from '../libs/abi/NounsFrensAuctionHouse.json';
 
 const auctionHouseABI = new utils.Interface(NounsAuctionHouseABI);
+const nounsFrensAuctionHouseABI = new utils.Interface(NounsFrensAuctionHouseABI);
 
 /**
  * Get the latest auction data of a Noun
  * @param auctionHouseProxyAddress The Auction House Proxy address
  * @returns The svg buffer of the Noun or undefined
  */
-export async function getAuction(auctionHouseProxyAddress: string): Promise<ContractAuction | undefined> {
+export async function getAuction(auctionHouseProxyAddress: string, auctionHouseFixedParam?: number): Promise<ContractAuction | undefined> {
 
   	const jsonRpcProvider = new providers.JsonRpcProvider(config.app.jsonRpcUri);
 
 	if (auctionHouseProxyAddress) {
 
-		const nounsAuctionHouseContract = new Contract(
-			auctionHouseProxyAddress,
-			auctionHouseABI,
-			jsonRpcProvider,
-	  	);
+		if (typeof auctionHouseFixedParam != "undefined") {
 
-	  	const auction = await nounsAuctionHouseContract.auction();
-	  	return auction;
+			const nounsAuctionHouseContract = new Contract(
+				auctionHouseProxyAddress,
+				nounsFrensAuctionHouseABI,
+				jsonRpcProvider,
+		  	);	  	
+
+		  	const auction = await nounsAuctionHouseContract.auctions(auctionHouseFixedParam);
+		  	return auction;
+		
+		} else {
+
+			const nounsAuctionHouseContract = new Contract(
+				auctionHouseProxyAddress,
+				auctionHouseABI,
+				jsonRpcProvider,
+		  	);	  	
+			console.log('getting nouns auction abi', auctionHouseABI);
+
+		  	const auction = await nounsAuctionHouseContract.auction();
+
+			console.log('nouns auction', auction);
+
+		  	return auction;
+
+		}
 	}
 }
 

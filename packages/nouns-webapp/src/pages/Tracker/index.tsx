@@ -32,7 +32,7 @@ const TrackerPage = () => {
       </Container>
     </div>
 
-      {trackerConfig.slice().map(tracker => (
+      {trackerConfig.slice(0, 5).map(tracker => (
 
 	    <div className={classes.wrapper}>
 	      <Container fluid="xl" style={{ borderBottomColor: '#a3efd0', borderBottomWidth: 'thin', borderBottomStyle: 'solid', marginBottom: '20px' }}>
@@ -47,12 +47,47 @@ const TrackerPage = () => {
 	          	tokenSVGFunction={tracker.tokenSVGFunction}
 	          	subgraphType={tracker.subgraphType}
 	          	timerType={tracker.timerType}
+	          	auctionHouseFixedParam={tracker.auctionHouseFixedParam}
 	          />
 	
 	      </Container>
 	    </div>
 	
       ))}
+
+    <div className={classes.wrapper}>
+
+      <Container fluid="xl" style={{ borderBottomColor: '#a3efd0', borderBottomWidth: 'thin', borderBottomStyle: 'solid', marginBottom: '20px' }}>
+
+	    <h3>
+	      Nounish Frens
+	    </h3>
+      </Container>
+    </div>
+
+      {trackerConfig.slice(5, 8).map(tracker => (
+
+	    <div className={classes.wrapper}>
+	      <Container fluid="xl" style={{ borderBottomColor: '#a3efd0', borderBottomWidth: 'thin', borderBottomStyle: 'solid', marginBottom: '20px' }}>
+	
+	          <Tracker 
+	          	name={tracker.name} 
+	          	uri={tracker.uri} 
+	          	tokenAddress={tracker.tokenAddress} 
+	          	auctionHouseProxyAddress={tracker.auctionHouseProxyAddress} 
+	          	subgraphApiUri={tracker.subgraphApiUri} 
+	          	
+	          	tokenSVGFunction={tracker.tokenSVGFunction}
+	          	subgraphType={tracker.subgraphType}
+	          	timerType={tracker.timerType}
+	          	auctionHouseFixedParam={tracker.auctionHouseFixedParam}
+	          />
+	
+	      </Container>
+	    </div>
+	
+      ))}
+
 
     <div className={classes.wrapper}>
       <Container fluid="xl" style={{ }}>
