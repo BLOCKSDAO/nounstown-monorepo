@@ -41,7 +41,11 @@
   color: black;
 }
 
-.verifyButtonWrapper {
+.statsWrapper {
+  text-align: center;
+}
+
+.notificationsWrapper {
 	
 }
 
@@ -49,7 +53,11 @@
   .footerSignature a {
     font-size: 16px;
   }
-  .verifyButtonWrapper {
+  .statsWrapper {
+  	text-align: right;
+  	padding-right: calc(var(--bs-gutter-x) * .5);	
+  }  
+  .notificationsWrapper {
   	text-align: center;	
   }  
 }

@@ -5,6 +5,7 @@ import { NounsAuctionHouseABI } from '@nouns/sdk';
 import { request, gql } from 'graphql-request'
 import { TokenMetadata, GraphAuction, ContractAuction } from './trackerTypes';
 import NounsFrensAuctionHouseABI from '../libs/abi/NounsFrensAuctionHouse.json';
+import BigNumber from 'bignumber.js';
 
 const auctionHouseABI = new utils.Interface(NounsAuctionHouseABI);
 const nounsFrensAuctionHouseABI = new utils.Interface(NounsFrensAuctionHouseABI);
@@ -38,17 +39,39 @@ export async function getAuction(auctionHouseProxyAddress: string, auctionHouseF
 				auctionHouseABI,
 				jsonRpcProvider,
 		  	);	  	
-			console.log('getting nouns auction abi', auctionHouseABI);
 
 		  	const auction = await nounsAuctionHouseContract.auction();
-
-			console.log('nouns auction', auction);
-
 		  	return auction;
 
 		}
 	}
 }
+
+/**
+ * Get the minimum bid increment percentage for the auction house
+ * @param auctionHouseProxyAddress The Auction House Proxy address
+ * @returns The min bid percentage
+ */
+export async function getAuctionMinBidIncPercentage(auctionHouseProxyAddress: string): Promise<BigNumber | undefined> {
+
+  	const jsonRpcProvider = new providers.JsonRpcProvider(config.app.jsonRpcUri);
+
+	const nounsAuctionHouseContract = new Contract(
+		auctionHouseProxyAddress,
+		auctionHouseABI,
+		jsonRpcProvider,
+  	);	  	
+	
+  	const minBidIncrement = await nounsAuctionHouseContract.minBidIncrementPercentage();
+  	if (minBidIncrement) {
+	  	return new BigNumber(minBidIncrement);
+	}
+}
+
+/**
+ * Get the latest block number
+ * @returns The latest block number
+ */
 
 export async function getBlockNumber(): Promise<number | undefined> {
   	const jsonRpcProvider = new providers.JsonRpcProvider(config.app.jsonRpcUri);

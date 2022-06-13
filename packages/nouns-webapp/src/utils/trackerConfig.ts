@@ -30,19 +30,6 @@ export const trackerConfig = [
     backgroundColor: '#eed8ab'
   },
   {
-    name: 'Gnar',
-    uri: 'https://gnars.wtf/',
-    tokenAddress: '0x494715b2a3c75dadd24929835b658a1c19bd4552',
-    tokenSVGFunction: 'tokenURI',
-    auctionHouseProxyAddress: '0x494715b2a3c75dadd24929835b658a1c19bd4552',
-    subgraphApiUri: 'https://api.thegraph.com/subgraphs/name/cryptosnowmickey/gnars-subgraph',
-    subgraphType: 'flat',
-    timerType: 'blocks',
-    description: 'Gnars',
-    handle: 'Gnars',
-    backgroundColor: '#eed8ab'
-  },
-  {
     name: 'NounsTown',
     uri: 'https://nounstown.wtf/',
     tokenAddress: '0xb632fD44053B09bddDaF92dE2C212bB12Ce8DbDF',
@@ -53,12 +40,26 @@ export const trackerConfig = [
     backgroundColor: ''
   },  
   {
+    name: 'Gnar',
+    uri: 'https://gnars.wtf/',
+    tokenAddress: '0x494715b2a3c75dadd24929835b658a1c19bd4552',
+    tokenSVGFunction: 'tokenURI',
+    auctionHouseProxyAddress: '0x494715b2a3c75dadd24929835b658a1c19bd4552',
+    subgraphApiUri: 'https://api.thegraph.com/subgraphs/name/cryptosnowmickey/gnars-subgraph',
+    subgraphType: 'flat',
+    timerType: 'blocks',
+    bidsDisabled: true,
+    description: 'Gnars',
+    handle: 'Gnars',
+    backgroundColor: '#eed8ab'
+  },
+  {
     name: 'Wizard',
     uri: 'https://wizardsdao.com/auction/1',
     tokenAddress: '0xc23b12eba3af92dc3ec94744c0c260cad0eed0e5',
     auctionHouseProxyAddress: '0x418cbb82f7472b321c2c5ccf76b8d9b6df47daba',
     auctionHouseFixedParam: 1,
-    subgraphType: 'flat',
+    bidsDisabled: true,
     description: 'Wizard DAO',
     handle: 'WizardsDAO',
     backgroundColor: '#eed8ab'
@@ -69,7 +70,7 @@ export const trackerConfig = [
     tokenAddress: '0xc23b12eba3af92dc3ec94744c0c260cad0eed0e5',
     auctionHouseProxyAddress: '0x418cbb82f7472b321c2c5ccf76b8d9b6df47daba',
     auctionHouseFixedParam: 2,
-    subgraphType: 'flat',
+    bidsDisabled: true,
     description: 'Wizard DAO',
     handle: 'WizardsDAO',
     backgroundColor: '#eed8ab'
@@ -80,7 +81,7 @@ export const trackerConfig = [
     tokenAddress: '0xc23b12eba3af92dc3ec94744c0c260cad0eed0e5',
     auctionHouseProxyAddress: '0x418cbb82f7472b321c2c5ccf76b8d9b6df47daba',
     auctionHouseFixedParam: 3,
-    subgraphType: 'flat',
+    bidsDisabled: true,
     description: 'Wizard DAO',
     handle: 'WizardsDAO',
     backgroundColor: '#eed8ab'

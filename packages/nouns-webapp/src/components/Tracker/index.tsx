@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import classes from './Tracker.module.css';
-import { Row, Col, Button } from 'react-bootstrap';
-import { getNounSVGBuffer, getRecenttAuctionBids, getAuction, getBlockNumber } from '../../utils/trackerUtils';
+import { Row, Col } from 'react-bootstrap';
+import { getNounSVGBuffer, getRecenttAuctionBids, getAuction, getBlockNumber, getAuctionMinBidIncPercentage } from '../../utils/trackerUtils';
 import { GraphAuction, ContractAuction } from '../../utils/trackerTypes';
 import TrackerAuctionTimer from '../TrackerAuctionTimer';
 import TrackerAuctionTimerBlock from '../TrackerAuctionTimerBlock';
 import TrackerWinner from '../TrackerWinner';
+import TrackerBid from '../TrackerBid';
 import Noun from '../Noun';
 import TrackerCurrentBid from '../TrackerCurrentBid';
 import TruncatedAmount from '../TruncatedAmount';
@@ -23,16 +24,19 @@ const Tracker: React.FC<{
 	subgraphType?: string;
 	timerType?: string;
 	auctionHouseFixedParam?: number;
+	bidsDisabled?: boolean;
 	}> = props => {
   const { 
   	name, uri, tokenAddress, auctionHouseProxyAddress, subgraphApiUri, 
-  	tokenSVGFunction, subgraphType, timerType, auctionHouseFixedParam 
+  	tokenSVGFunction, subgraphType, timerType, auctionHouseFixedParam, bidsDisabled
   } = props;
 
   const [auctionEnded, setAuctionEnded] = useState(false);
   const [auctionTimer, setAuctionTimer] = useState(false);
   const [blockNumber, setBlockNumber] = useState<number | null>();
   const [blocksLeft, setBlocksLeft] = useState(new BigNumber(0));
+  const [auctioMinBidIncPercentage, setAuctioMinBidIncPercentage] = useState<BigNumber | null>();
+  
   
   //const [auctionGraph, setAuctionGraph] = useState<GraphAuction | null>();
   const [auctionSVG, setAuctionSVG] = useState<Buffer | null>();
@@ -71,6 +75,19 @@ const Tracker: React.FC<{
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auctionHouseProxyAddress, auctionTimer]);
+
+  //get the Auction Min Bid Inc Percentage, once per Tracker item
+  useEffect(() => {
+    
+    const loadMinBid = async () => {
+		setAuctioMinBidIncPercentage(await getAuctionMinBidIncPercentage(auctionHouseProxyAddress));	    	
+    };
+    loadMinBid();
+    
+
+    return () => {
+    };
+  }, [auctionHouseProxyAddress]);
 
       
   if (auctionContract) {
@@ -240,6 +257,8 @@ const Tracker: React.FC<{
   	}
   }
   
+  const bidsEnabled = (bidsDisabled !== undefined && bidsDisabled) ? false : true;
+  
   const handleNotificationChange = () => {
   	//enable notifications
   	if (notificationToggle === false) {
@@ -262,12 +281,15 @@ const Tracker: React.FC<{
 	      <Row className={classes.activityRow}>
 	        <Col lg={2} className={classes.currentBidCol}>
 				<h3>{name} {auctionId}</h3>
-	        	<Noun 
-	        		imgPath={(auctionSVG) ? `data:image/svg+xml;base64,${btoa(auctionSVG.toString())}` : ''} 
-	        		alt={name} 
-	        		className={classes.nounImg}
-	        		wrapperClassName={classes.nounWrapper}
-	        	/>
+
+				<a href={uri} target="_blank" rel="noreferrer">
+		        	<Noun 
+		        		imgPath={(auctionSVG) ? `data:image/svg+xml;base64,${btoa(auctionSVG.toString())}` : ''} 
+		        		alt={name} 
+		        		className={classes.nounImg}
+		        		wrapperClassName={classes.nounWrapper}
+		        	/>
+		        </a>
 	        </Col>
 	        <Col lg={2} className={classes.currentBidCol}>
 	          <TrackerCurrentBid
@@ -277,10 +299,8 @@ const Tracker: React.FC<{
 		      <br />
 	          
 	          {auctionStats && (
-		          <div className={classes.verifyButtonWrapper} style={{ textAlign: 'center', color: 'white', fontWeight: 'bold', fontSize: 'small' }}>
-			        Average:
-			        <br />
-			        <TruncatedAmount amount={statsAvg && statsAvg} /> *
+		          <div className={classes.statsWrapper} style={{ color: 'white', fontSize: 'medium' }}>
+			        <TruncatedAmount amount={statsAvg && statsAvg} /> avg&nbsp;
 			      </div>
 		     )}
 
@@ -289,7 +309,29 @@ const Tracker: React.FC<{
 	        </Col>
 	        <Col lg={5} className={classes.currentBidderCol}>
 	        	<TrackerWinner winner={auctionBidderId} auctionEnded={auctionEnded} />
+
+		        {bidsEnabled && !auctionEnded && (
+		          <>
+		            <Row className={classes.activityRow}>
+		              <Col lg={1}>
+		              	&nbsp;
+		              </Col>
+		              <Col lg={10}>
+		                {(auctioMinBidIncPercentage && auctioMinBidIncPercentage !== undefined) && (
+		                	<TrackerBid auctionContract={auctionContract} auctionHouseProxyAddress={auctionHouseProxyAddress} auctionEnded={auctionEnded} auctioMinBidIncPercentage={auctioMinBidIncPercentage} />
+		                )}
+		              </Col>
+		              <Col lg={1}>
+		              	&nbsp;
+		              </Col>
+		              
+		              
+		            </Row>
+		          </>
+		        )}
+
 	        </Col>
+
 	        <Col lg={3} className={classes.auctionTimerCol}>
 	        
 	        {timerType === 'blocks' ? (	        
@@ -298,14 +340,9 @@ const Tracker: React.FC<{
 			    <TrackerAuctionTimer auctionContract={auctionContract} auctionEnded={auctionEnded} />
       		)}
 
-	          <div className={classes.verifyButtonWrapper} >
-	            <br />
-	          	<a href={uri} target="_blank" rel="noreferrer">
-	            	<Button className={classes.whiteInfo}>View</Button>
-	            </a>
-	            <br />&nbsp;
-	            <br />
-	            <span style={{ fontStyle: 'bold', fontSize: 'medium' }}>
+	          <div className={classes.notificationsWrapper} >
+	          	<br />
+	            <span style={{ color: 'white', fontSize: 'medium' }}>
 	            Notifications&nbsp;
 	            <input type="checkbox" 
 				   name={'notifications'} 
