@@ -25,7 +25,7 @@ const TrackerAuctionTimer: React.FC<{
   auctionTimerRef.current = auctionTimer;
 
   const timerDuration = dayjs.duration(auctionTimerRef.current, 's');
-  const endTimeUnix = Math.floor(Date.now() / 1000) + auctionTimerRef.current;
+  //const endTimeUnix = Math.floor(Date.now() / 1000) + auctionTimerRef.current;
 
   // timer logic
   useEffect(() => {
