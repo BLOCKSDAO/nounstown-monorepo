@@ -62,6 +62,8 @@ const TrackerAuctionTimer: React.FC<{
   const isCool = useAppSelector(state => state.application.isCoolBackground); //not really used right now...
 
   if (!auctionContract) return null;
+  
+  const originalEndTime = (auctionContract && Number(auctionContract.endTime));
 
   return (
     <Row
@@ -82,8 +84,8 @@ const TrackerAuctionTimer: React.FC<{
             )
           ) : (
             <>
-              <Trans>Ends on</Trans> {i18n.date(new Date(endTimeUnix * 1000), { month: 'short' })}{' '}
-              {i18n.date(new Date(endTimeUnix * 1000), { day: 'numeric' })} <Trans>at</Trans>
+              <Trans>Ends on</Trans> {i18n.date(new Date(originalEndTime * 1000), { month: 'short' })}{' '}
+              {i18n.date(new Date(originalEndTime * 1000), { day: 'numeric' })} <Trans>at</Trans>
             </>
           )}
         </h4>
@@ -129,7 +131,7 @@ const TrackerAuctionTimer: React.FC<{
             }}
           >
             <div className={clsx(classes.timerSection, classes.clockSection)}>
-              <span>{i18n.date(new Date(endTimeUnix * 1000), { timeStyle: 'medium' })}</span>
+              <span>{i18n.date(new Date(originalEndTime * 1000), { timeStyle: 'medium' })}</span>
             </div>
           </h2>
         )}

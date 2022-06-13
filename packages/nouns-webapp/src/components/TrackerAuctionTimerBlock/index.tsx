@@ -97,9 +97,9 @@ const TrackerAuctionTimerBlock: React.FC<{
             <div className={classes.timerSection}>
 
 		        {(auctionEnded || blocksLeft.lte(new BigNumber(0))) ? (	        
-				    <span>--- Blocks</span>
+				    <span>{blocksLeft.negated().toString()} blocks ago</span>
 	      		) : (	        
-	          		<span>{blocksLeft.toString()} Blocks</span>
+	          		<span>{blocksLeft.toString()} blocks</span>
 	      		)}
 
             </div>
