@@ -1,0 +1,32 @@
+@media (max-width: 992px) {
+  .emergencySettleWrapper {
+    text-align: center;
+    margin-left: 0.5rem;
+  }
+}
+
+@media (max-width: 660px) {
+  .emergencySettleWrapper {
+    text-align: center;
+    margin-left: 0rem;
+  }
+}
+
+.emergencySettleButton {
+  background-color: transparent;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  /*text-decoration: underline;*/
+  text-decoration: none;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+}
+.emergencySettleButton:disabled {
+  /*color: #8c8d92;*/
+  color: #ffffff;
+  text-decoration: none;
+  cursor: default;
+}

@@ -12,6 +12,7 @@ import { useAppDispatch } from '../../hooks';
 import { AlertModal, setAlertModal } from '../../state/slices/application';
 import { NounsAuctionHouseFactory } from '@nouns/sdk';
 import WalletConnectModal from '../WalletConnectModal';
+import TrackerSettleManuallyBtn from '../TrackerSettleManuallyBtn';
 import { Trans } from '@lingui/macro';
 import { useActiveLocale } from '../../hooks/useActivateLocale';
 import responsiveUiUtilsClasses from '../../utils/ResponsiveUIUtils.module.css';
@@ -158,11 +159,13 @@ const TrackerBid: React.FC<{
     const isCorrectTx = currentBid(bidInputRef).isEqualTo(new BigNumber(auctionContract.amount.toString()));
     if (isMiningUserTx && auctionContract.bidder === account && isCorrectTx) {
       placeBidState.status = 'Success';
+      /*
       setModal({
         title: <Trans>Success</Trans>,
         message: <Trans>Bid was placed successfully!</Trans>,
         show: true,
       });
+      */
       setBidButtonContent({ loading: false, content: <Trans>Place bid</Trans> });
       clearBidInput();
     }
@@ -177,6 +180,15 @@ const TrackerBid: React.FC<{
           content: <Trans>Place bid</Trans>,
         });
         break;
+      case 'Success':
+        setModal({
+          title: <Trans>Success</Trans>,
+          message: <Trans>Bid was placed successfully!</Trans>,
+          show: true,
+        });
+        setBidButtonContent({ loading: false, content: <Trans>Place bid</Trans> });
+        clearBidInput();
+        break;        
       case 'Mining':
         setBidButtonContent({ loading: true, content: <></> });
         break;
@@ -304,7 +316,7 @@ const TrackerBid: React.FC<{
             {/* Only show force settle button if wallet connected */}
             {isWalletConnected && (
               <Col lg={12}>
-
+				<TrackerSettleManuallyBtn settleAuctionHandler={settleAuctionHandler} auctionContract={auctionContract} />
               </Col>
             )}
           </>

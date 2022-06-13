@@ -310,7 +310,7 @@ const Tracker: React.FC<{
 	        <Col lg={5} className={classes.currentBidderCol}>
 	        	<TrackerWinner winner={auctionBidderId} auctionEnded={auctionEnded} />
 
-		        {bidsEnabled && !auctionEnded && (
+		        {bidsEnabled && (
 		          <>
 		            <Row className={classes.activityRow}>
 		              <Col lg={1}>
