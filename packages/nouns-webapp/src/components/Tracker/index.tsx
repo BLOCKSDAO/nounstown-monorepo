@@ -337,9 +337,9 @@ const Tracker: React.FC<{
 		              <Col lg={10}>
 		              	<div className={classes.notificationsWrapper} style={{ marginTop: '10px'}}>
 				        {auctionEnded ? (	        
-						    <span style={{ color: 'white', fontSize: 'medium' }}>Settling not enabled for this auction</span>
+						    <span style={{ color: 'white', fontSize: 'medium' }}>Settling from the tracker not available</span>
 			      		) : (	        
-						    <span style={{ color: 'white', fontSize: 'medium' }}>Bidding not enabled for this auction</span>
+						    <span style={{ color: 'white', fontSize: 'medium' }}>Bidding from the tracker not available</span>
 			      		)}
 			      		</div>
 		              </Col>
