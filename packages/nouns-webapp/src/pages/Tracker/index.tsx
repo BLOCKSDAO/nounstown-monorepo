@@ -49,6 +49,7 @@ const TrackerPage = () => {
 	          	timerType={tracker.timerType}
 	          	auctionHouseFixedParam={tracker.auctionHouseFixedParam}
 	          	bidsDisabled={tracker.bidsDisabled}
+	          	pingInterval={tracker.pingInterval}	          	
 	          />
 	
 	      </Container>
@@ -83,6 +84,7 @@ const TrackerPage = () => {
 	          	timerType={tracker.timerType}
 	          	auctionHouseFixedParam={tracker.auctionHouseFixedParam}
 	          	bidsDisabled={tracker.bidsDisabled}
+	          	pingInterval={tracker.pingInterval}	          	
 	          />
 	
 	      </Container>

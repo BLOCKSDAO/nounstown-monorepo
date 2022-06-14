@@ -51,7 +51,8 @@ export const trackerConfig = [
     bidsDisabled: true,
     description: 'Gnars',
     handle: 'Gnars',
-    backgroundColor: '#eed8ab'
+    backgroundColor: '#eed8ab',
+    pingInterval: 60000,
   },
   {
     name: 'Wizard',
@@ -62,7 +63,8 @@ export const trackerConfig = [
     bidsDisabled: true,
     description: 'Wizard DAO',
     handle: 'WizardsDAO',
-    backgroundColor: '#eed8ab'
+    backgroundColor: '#eed8ab',
+    pingInterval: 60000,
   },
   {
     name: 'Wizard',
@@ -73,7 +75,8 @@ export const trackerConfig = [
     bidsDisabled: true,
     description: 'Wizard DAO',
     handle: 'WizardsDAO',
-    backgroundColor: '#eed8ab'
+    backgroundColor: '#eed8ab',
+    pingInterval: 60000,
   },
   {
     name: 'Wizard',
@@ -84,7 +87,8 @@ export const trackerConfig = [
     bidsDisabled: true,
     description: 'Wizard DAO',
     handle: 'WizardsDAO',
-    backgroundColor: '#eed8ab'
+    backgroundColor: '#eed8ab',
+    pingInterval: 60000,
   },  
 ];
 

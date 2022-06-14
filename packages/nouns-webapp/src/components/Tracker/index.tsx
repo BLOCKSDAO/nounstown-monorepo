@@ -25,10 +25,11 @@ const Tracker: React.FC<{
 	timerType?: string;
 	auctionHouseFixedParam?: number;
 	bidsDisabled?: boolean;
+	pingInterval?: number;
 	}> = props => {
   const { 
   	name, uri, tokenAddress, auctionHouseProxyAddress, subgraphApiUri, 
-  	tokenSVGFunction, subgraphType, timerType, auctionHouseFixedParam, bidsDisabled
+  	tokenSVGFunction, subgraphType, timerType, auctionHouseFixedParam, bidsDisabled, pingInterval
   } = props;
 
   const [auctionEnded, setAuctionEnded] = useState(false);
@@ -158,6 +159,7 @@ const Tracker: React.FC<{
   };
   */
 
+  const timerInterval = (pingInterval !== undefined) ? pingInterval : 30000; //default to 30 seconds
   // timer logic - check auction status every 30 seconds, until five minutes remain, then check status every second
   // change to check every 10 seconds on < 5 minutes
   useEffect(() => {
@@ -176,7 +178,7 @@ const Tracker: React.FC<{
 	        () => {
 	          setAuctionTimer(!auctionTimer);
 	        },
-	        30000,
+	        timerInterval,
 	      );
 	
 	      return () => {
@@ -199,7 +201,7 @@ const Tracker: React.FC<{
 	        () => {
 	          setAuctionTimer(!auctionTimer);
 	        },
-	        (timeLeft > 300 || timeLeft <= 0) ? 30000 : 10000,
+	        (timeLeft > 300 || timeLeft <= 0) ? timerInterval : 10000,
 	      );
 	
 	      return () => {
@@ -310,7 +312,7 @@ const Tracker: React.FC<{
 	        <Col lg={5} className={classes.currentBidderCol}>
 	        	<TrackerWinner winner={auctionBidderId} auctionEnded={auctionEnded} />
 
-		        {bidsEnabled && (
+		        {bidsEnabled ? (
 		          <>
 		            <Row className={classes.activityRow}>
 		              <Col lg={1}>
@@ -324,8 +326,26 @@ const Tracker: React.FC<{
 		              <Col lg={1}>
 		              	&nbsp;
 		              </Col>
-		              
-		              
+		            </Row>
+		          </>
+		        ) : (
+		          <>
+		            <Row className={classes.activityRow}>
+		              <Col lg={1}>
+		              	&nbsp;
+		              </Col>
+		              <Col lg={10}>
+		              	<div className={classes.notificationsWrapper} style={{ marginTop: '10px'}}>
+				        {auctionEnded ? (	        
+						    <span style={{ color: 'white', fontSize: 'medium' }}>Settling not enabled for this auction</span>
+			      		) : (	        
+						    <span style={{ color: 'white', fontSize: 'medium' }}>Bidding not enabled for this auction</span>
+			      		)}
+			      		</div>
+		              </Col>
+		              <Col lg={1}>
+		              	&nbsp;
+		              </Col>		              
 		            </Row>
 		          </>
 		        )}
@@ -340,7 +360,7 @@ const Tracker: React.FC<{
 			    <TrackerAuctionTimer auctionContract={auctionContract} auctionEnded={auctionEnded} />
       		)}
 
-	          <div className={classes.notificationsWrapper} >
+	          <div className={classes.notificationsWrapper} style={{ marginTop: '5px'}}>
 	          	<br />
 	            <span style={{ color: 'white', fontSize: 'medium' }}>
 	            Notifications&nbsp;
