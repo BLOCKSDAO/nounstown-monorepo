@@ -1,6 +1,6 @@
 import config from '../config';
 import { Contract, providers, utils } from 'ethers';
-import { NounsTokenABI } from '@nouns/contracts';
+import { NounsTokenABI, NounsSeederABI, NounsDescriptorABI } from '@nouns/contracts';
 import { NounsAuctionHouseABI } from '@nouns/sdk';
 import { request, gql } from 'graphql-request'
 import { TokenMetadata, GraphAuction, ContractAuction } from './trackerTypes';
@@ -110,6 +110,39 @@ export async function getNounSVGBuffer(tokenAddress: string, tokenId: string, sv
 	  	}	
 	}
 }
+ 
+export async function getNextNounSVGBuffer(descriptorAddress: string, seederAddress: string, tokenId: string): Promise<Buffer | undefined> {
+
+  	const jsonRpcProvider = new providers.JsonRpcProvider(config.app.jsonRpcUri);
+
+	if (descriptorAddress && seederAddress && tokenId) {
+	  	
+		const nounsDescriptorContract = new Contract(
+			descriptorAddress,
+			NounsDescriptorABI,
+			jsonRpcProvider,
+	  	);
+
+		const nounsSeederContract = new Contract(
+			seederAddress,
+			NounsSeederABI,
+			jsonRpcProvider,
+	  	);
+
+		const seed = await nounsSeederContract.generateSeed(
+		    tokenId,
+		    descriptorAddress,
+		    {
+		      blockTag: "pending"
+		    }		    
+		  );
+		  		  
+		const dataURI = await nounsDescriptorContract.generateSVGImage(seed);
+		return Buffer.from(dataURI, 'base64');
+		
+ 		//return atob(svg);
+	}
+}
 
 /**
  * Query the subgraph and return the last auction id and bid created.
@@ -166,7 +199,7 @@ export async function getRecenttAuctionBids(subgraphApiUri: string, subgraphType
 
 const gqlRecenttAuctionBids = gql`
   query {
-	  auctions(orderBy: startTime, orderDirection: desc, first: 26) {
+	  auctions(orderBy: startTime, orderDirection: desc, first: 101) {
 	    id
 	    bids(orderBy: blockNumber, orderDirection: desc, first: 1) {
 	      amount
@@ -177,7 +210,7 @@ const gqlRecenttAuctionBids = gql`
 
 const gqlRecenttAuctionBidsFlat = gql`
   query {
-	  auctionBids (orderBy: timestamp, orderDirection: desc, first: 26) {
+	  auctionBids (orderBy: timestamp, orderDirection: desc, first: 101) {
 	    id
 	    value
 	  }

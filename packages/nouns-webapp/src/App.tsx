@@ -13,6 +13,7 @@ import NetworkAlert from './components/NetworkAlert';
 import Footer from './components/Footer';
 import AuctionPage from './pages/Auction';
 import TrackerPage from './pages/Tracker';
+import TrackerTesterPage from './pages/TrackerTester';
 import GovernancePage from './pages/Governance';
 import CreateProposalPage from './pages/CreateProposal';
 import VotePage from './pages/Vote';
@@ -59,6 +60,7 @@ function App() {
               render={props => <AuctionPage initialAuctionId={Number(props.match.params.id)} />}
             />
             <Route exact path="/tracker" component={TrackerPage} />
+            <Route exact path="/tester" component={TrackerTesterPage} />
             <Route exact path="/nouncil" component={NoundersPage} />
             <Route exact path="/nounies" component={NouniesPage} />
             <Route exact path="/create-proposal" component={CreateProposalPage} />

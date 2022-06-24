@@ -1,14 +1,14 @@
 import React from 'react';
-import classes from './TrackerPage.module.css';
+import classes from './TrackerTesterPage.module.css';
 import Section from '../../layout/Section';
 import { Container } from 'react-bootstrap';
 import { setStateBackgroundColor } from '../../state/slices/application';
 import { useAppDispatch } from '../../hooks';
 
-import Tracker from '../../components/Tracker';
+import Tracker from '../../components/TrackerTester';
 import trackerConfig from '../../utils/trackerConfig';
 
-const TrackerPage = () => {
+const TrackerTesterPage = () => {
   const dispatch = useAppDispatch();
   dispatch(setStateBackgroundColor(''));
   
@@ -32,7 +32,7 @@ const TrackerPage = () => {
       </Container>
     </div>
 
-      {trackerConfig.slice(0, 5).map(tracker => (
+      {trackerConfig.slice(3, 4).map(tracker => (
 
 	    <div className={classes.wrapper}>
 	      <Container fluid="xl" style={{ borderBottomColor: '#a3efd0', borderBottomWidth: 'thin', borderBottomStyle: 'solid', marginBottom: '20px' }}>
@@ -43,6 +43,8 @@ const TrackerPage = () => {
 	          	tokenAddress={tracker.tokenAddress} 
 	          	auctionHouseProxyAddress={tracker.auctionHouseProxyAddress} 
 	          	subgraphApiUri={tracker.subgraphApiUri} 
+	          	descriptorAddress={tracker.descriptorAddress} 
+	          	seederAddress={tracker.seederAddress} 
 	          	
 	          	tokenSVGFunction={tracker.tokenSVGFunction}
 	          	subgraphType={tracker.subgraphType}
@@ -67,7 +69,7 @@ const TrackerPage = () => {
       </Container>
     </div>
 
-      {trackerConfig.slice(5, 8).map(tracker => (
+      {trackerConfig.slice(5, 5).map(tracker => (
 
 	    <div className={classes.wrapper}>
 	      <Container fluid="xl" style={{ borderBottomColor: '#a3efd0', borderBottomWidth: 'thin', borderBottomStyle: 'solid', marginBottom: '20px' }}>
@@ -108,4 +110,4 @@ const TrackerPage = () => {
   );  
 };
 
-export default TrackerPage;
+export default TrackerTesterPage;
