@@ -42,6 +42,16 @@ export const trackerConfig = [
     backgroundColor: ''
   },  
   {
+    name: 'SZNoun',
+    uri: 'https://www.sznouns.wtf/',
+    tokenAddress: '0xd6c4cb5a3e040abc8be977dc10b658ec9072a1f4',
+    auctionHouseProxyAddress: '0xbdae19bca243eb440d900f10e310b8d69c736364',
+    subgraphApiUri: 'https://api.thegraph.com/subgraphs/name/0xgoretex/sznouns',
+    description: 'SZNouns',
+    handle: 'sznouns',
+    backgroundColor: '#eed8ab'
+  },
+  {
     name: 'Gnar',
     uri: 'https://gnars.wtf/',
     tokenAddress: '0x558bfff0d583416f7c4e380625c7865821b8e95c',

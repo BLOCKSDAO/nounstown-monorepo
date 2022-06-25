@@ -67,7 +67,7 @@ const TrackerPage = () => {
       </Container>
     </div>
 
-      {trackerConfig.slice(5, 8).map(tracker => (
+      {trackerConfig.slice(5, 9).map(tracker => (
 
 	    <div className={classes.wrapper}>
 	      <Container fluid="xl" style={{ borderBottomColor: '#a3efd0', borderBottomWidth: 'thin', borderBottomStyle: 'solid', marginBottom: '20px' }}>
