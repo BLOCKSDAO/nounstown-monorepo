@@ -199,7 +199,7 @@ export async function getRecenttAuctionBids(subgraphApiUri: string, subgraphType
 
 const gqlRecenttAuctionBids = gql`
   query {
-	  auctions(orderBy: startTime, orderDirection: desc, first: 101) {
+	  auctions(orderBy: startTime, orderDirection: desc, first: 201) {
 	    id
 	    bids(orderBy: blockNumber, orderDirection: desc, first: 1) {
 	      amount
@@ -210,7 +210,7 @@ const gqlRecenttAuctionBids = gql`
 
 const gqlRecenttAuctionBidsFlat = gql`
   query {
-	  auctionBids (orderBy: timestamp, orderDirection: desc, first: 101) {
+	  auctionBids (orderBy: timestamp, orderDirection: desc, first: 201) {
 	    id
 	    value
 	  }

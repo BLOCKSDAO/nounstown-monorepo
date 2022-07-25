@@ -97,7 +97,7 @@ const TrackerPage = () => {
       <Container fluid="xl" style={{ }}>
 	    <br />
 
-	    <span style={{ fontStyle: 'italic', fontSize: 'small' }}>* All stats are from last 100 auctions</span>
+	    <span style={{ fontStyle: 'italic', fontSize: 'small' }}>* All stats are from last 200 auctions</span>
 
       </Container>
     </div>
