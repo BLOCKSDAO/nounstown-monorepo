@@ -78,6 +78,7 @@ export const trackerConfig = [
     backgroundColor: '#eed8ab',
     pingInterval: 60000,
   },
+  /*
   {
     name: 'Wizard',
     uri: 'https://wizardsdao.com/auction/2',
@@ -102,6 +103,7 @@ export const trackerConfig = [
     backgroundColor: '#eed8ab',
     pingInterval: 60000,
   },  
+  */
 ];
 
 export default trackerConfig;

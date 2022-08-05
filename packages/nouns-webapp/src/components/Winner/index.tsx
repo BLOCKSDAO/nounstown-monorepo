@@ -36,7 +36,7 @@ const Winner: React.FC<WinnerProps> = props => {
           <Trans>You</Trans>
         </h2>
       </Col>
-      {!isMobile && (
+      {false && !isMobile && (
         <Col>
           <a
             href="/nounies"
@@ -55,7 +55,7 @@ const Winner: React.FC<WinnerProps> = props => {
     <ShortAddress size={40} address={winner} avatar={true} />
   );
 
-  const nounderNounContent = 'Nouncil';
+  const nounderNounContent = 'NounsTown Founders';
 
   return (
     <>
@@ -81,7 +81,7 @@ const Winner: React.FC<WinnerProps> = props => {
           </h2>
         </Col>
       </Row>
-      {isWinnerYou && isMobile && (
+      {false && isWinnerYou && isMobile && (
         <Row>
           <a
             href="/nounies"

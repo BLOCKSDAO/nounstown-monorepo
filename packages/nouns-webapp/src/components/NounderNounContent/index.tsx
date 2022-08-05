@@ -78,10 +78,9 @@ const NounderNounContent: React.FC<{
               }
             >
               <Trans>
-				The Nouncil receives rewards in the form of NounsTown PFDs.
-                Every 16th Noun for the first 4 years of the project will be
-                sent to the Nouncil, where it will be vested and distributed to individual
-                Nouncil members (365 total NounsTown PFDs).
+				The NounsTown Founders receives rewards in the form of NounsTowners.
+                Every 16th NounsTowner for the first 4 years of the project will be
+                sent to the Founders (365 total NounsTowners).
               </Trans>
             </li>
           </ul>
@@ -91,10 +90,10 @@ const NounderNounContent: React.FC<{
             }
           >
             <Link
-              to="/nouncil"
+              to="/"
               className={isCool ? bidBtnClasses.bidHistoryCool : bidBtnClasses.bidHistoryWarm}
             >
-              <Trans>Learn more</Trans> →
+              <Trans>Go to latest</Trans> →
             </Link>
           </div>
         </Col>

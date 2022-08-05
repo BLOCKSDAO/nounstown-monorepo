@@ -56,7 +56,7 @@ const TrackerWinner: React.FC<TrackerWinnerProps> = props => {
     <ShortAddress size={40} address={winner} avatar={true} />
   );
 
-  const nounderNounContent = 'Nouncil';
+  const nounderNounContent = 'Founders';
 
   return (
     <>

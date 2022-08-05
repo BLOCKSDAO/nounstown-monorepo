@@ -23,7 +23,6 @@ const Footer = () => {
           <Link text={<Trans>Discord</Trans>} url={discordURL} leavesPage={true} />
           <Link text={<Trans>Twitter</Trans>} url={twitterURL} leavesPage={true} />
           <Link text={<Trans>Etherscan</Trans>} url={etherscanURL} leavesPage={true} />
-          <Link text={<Trans>BLOCKS</Trans>} url={'https://joinblocks.com'} leavesPage={true} />
         </footer>
       </Container>
     </div>

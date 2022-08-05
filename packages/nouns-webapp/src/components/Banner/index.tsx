@@ -12,7 +12,7 @@ const Banner = () => {
       <Col lg={6}>
         <div className={classes.wrapper}>
           <h1>
-            <Trans>FOUR BLOCKS,</Trans>
+            <Trans>FOUR NOUNSTOWNERS,</Trans>
             <br />
             <Trans>EVERY DAY,</Trans>
             <br />

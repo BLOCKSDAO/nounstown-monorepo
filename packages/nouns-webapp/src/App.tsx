@@ -53,7 +53,7 @@ function App() {
             <Route exact path="/" component={AuctionPage} />
             <Redirect from="/auction/:id" to="/block/:id" />
             <Redirect from="/noun/:id" to="/block/:id" />
-            <Redirect from="/nounders" to="/nouncil" />
+            <Redirect from="/nouncil" to="/nounders" />
             <Route
               exact
               path="/block/:id"
@@ -61,8 +61,8 @@ function App() {
             />
             <Route exact path="/tracker" component={TrackerPage} />
             <Route exact path="/tester" component={TrackerTesterPage} />
-            <Route exact path="/nouncil" component={NoundersPage} />
-            <Route exact path="/nounies" component={NouniesPage} />
+            <Route exact path="/nounders" component={NoundersPage} />
+            <Route exact path="/x-nounies" component={NouniesPage} />
             <Route exact path="/create-proposal" component={CreateProposalPage} />
             <Route exact path="/vote" component={GovernancePage} />
             <Route exact path="/vote/:id" component={VotePage} />

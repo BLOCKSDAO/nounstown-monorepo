@@ -173,10 +173,6 @@ const NoundersPage = () => {
 			<li>We delivered a sick POAP 2 to founding Nouncillors (art by Messhup)</li>
 			</ul>
 
-			The Nouncil receives rewards in the form of NounsTown PFDs.
-            Every 16th Noun for the first 4 years of the project will be
-            sent to the Nouncil, where it will be vested and distributed to individual
-            Nouncil members (365 total NounsTown PFDs).
           </Trans>
         </p>
       </Col>

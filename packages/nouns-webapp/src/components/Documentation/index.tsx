@@ -13,27 +13,6 @@ const Documentation = () => {
       leavesPage={true}
     />
   );
-  const nouncilLink = (
-    <Link
-      text={<Trans>Nouncil</Trans>}
-      url="/nouncil"
-      leavesPage={false}
-    />
-  );
-  const blocksLink = (
-    <Link
-      text={<Trans>BLOCKS</Trans>}
-      url="https://joinblocks.com"
-      leavesPage={true}
-    />
-  );
-  const blocksEnvironmentLink = (
-    <Link
-      text={<Trans>https://beta.joinblocks.com/blocks/nouns</Trans>}
-      url="https://beta.joinblocks.com/blocks/nouns"
-      leavesPage={true}
-    />
-  );
   const playgroundLink = (
     <Link text={<Trans>Playground</Trans>} url="/playground" leavesPage={false} />
   );
@@ -62,13 +41,12 @@ const Documentation = () => {
           </h1>
           <p className={classes.aboutText}>
               An expansion of the {nounsLink} DAO universe, NounsTown works to create a new layer within the Nouns ecosystem. 
-			  NounsTown PFDs (profile deeds) feature the CC0 artwork from Nouns DAO, and have the added benefit of being linked to space in the Metaverse on the {blocksLink} platform!	
-			  By expanding the ecosystem into the Metaverse, building in the open, and inviting others to participate, NounsTown aims to expose more people to Nouns 
-			  and the broader Nouns mission to bootstrap identity, community and governance.
-			  Auction proceeds are split 50/50 between the {nouncilLink}, a special council of Nounish BUIDLers & Nounish extension reps, and BLOCKS DAO.
+			  NounsTowners feature the CC0 artwork from Nouns DAO, and come with an extra neighborly vibe in the form of a Nature Trait!	
+			  NounsTown aims to expose more people to Nouns and the broader Nouns mission to bootstrap identity, community and governance.
+			  Auction proceeds are used to acquire Nouns, and to provide the community with access to the broader Nouns governance model.
           </p>
           <p className={classes.aboutText} style={{ paddingBottom: '4rem' }}>
-              Learn more below, or start creating PFDs off-chain using the {playgroundLink}.
+              Learn more below, or start creating NounsTowners off-chain using the {playgroundLink}.
           </p>
         </div>
         <Accordion flush>
@@ -79,60 +57,29 @@ const Documentation = () => {
             <Accordion.Body>
               <ul>
                 <li>
-                  NounsTown PFD artwork is in the {publicDomainLink}.
+                  NounsTown artwork is in the {publicDomainLink}.
                 </li>
                 <li>
-                  <Trans>One NounsTown PFD is trustlessly auctioned every 6 hours, forever.</Trans>
+                  <Trans>One NounsTowner is trustlessly auctioned every 6 hours, forever.</Trans>
                 </li>
                 <li>
-                  <Trans>100% of NounsTown auction proceeds are trustlessly sent to the treasury, to be split 50/50 between the Nouncil and BLOCKS DAO.</Trans>
+                  <Trans>100% of NounsTown auction proceeds are trustlessly sent to the treasury.</Trans>
                 </li>
                 <li>
                   <Trans>Settlement of one auction kicks off the next.</Trans>
-                </li>
-                <li>
-                  <Trans>All NounsTown owners are members of BLOCKS DAO.</Trans>
                 </li>
                 <li>
                   <Trans>Artwork is generative and stored directly on-chain (not IPFS).</Trans>
                 </li>
                 <li>
                   <Trans>
-                    The Nouncil receives rewards in the form of NounsTown PFDs (1/16th of supply for the first 4 years (365 total NounsTown PFDs)).
+                    The NounsTown Founders receive rewards in the form of NounsTowners (1/16th of supply for the first 4 years (365 total NounsTowners)).
                   </Trans>
                 </li>
               </ul>
             </Accordion.Body>
           </Accordion.Item>
 
-          <Accordion.Item eventKey="1" className={classes.accordionItem}>
-            <Accordion.Header className={classes.accordionHeader}>
-              <Trans>WTF am I bidding on?</Trans>
-            </Accordion.Header>
-            <Accordion.Body>				
-					At a NounsTown auction, you’re bidding and trying to win a PFD (Profile Deed).
-	                <br />
-	                <br />
-	
-		            <h3>WTF PFD?</h3>
-		            A PFD (Profile Deed) is a profile pic that acts as proof of ownership to a parcel of Metaverse land in the NounsTown environment on the BLOCKS platform.
-	                <br />
-	                <br />
-
-	            	<h3>WTF BLOCKS?</h3>
-	            	NounsTown is built on the BLOCKS platform and can be explored at:
-	            	<br />
-	                {blocksEnvironmentLink}
-	                <br />
-	                <br />
-	            	Anyone can visit NounsTown, but only PFD owners are able to customize their parcel of Metaverse land.
-	                <br />
-	                <br />
-					Once a PFD owner connects their wallet to the platform, they can select the MY BLOCKS option in the tabbed navigation bar (it's between 'EXPLORE BLOCKS' and 'AVATARS'), where they’ll see their PFDs available for viewing and editing.
-	            	
-            </Accordion.Body>
-          </Accordion.Item>
-          
           <Accordion.Item eventKey="2" className={classes.accordionItem}>
             <Accordion.Header className={classes.accordionHeader}>
               <Trans>6 Hour Auctions</Trans>
@@ -141,19 +88,18 @@ const Documentation = () => {
               <p className={classes.aboutText}>
                 <Trans>
                   The NounsTown Auction Contract will act as a self-sufficient generation and
-                  distribution mechanism, auctioning one NounsTown PFD every 6 hours, forever. 100% of
-                  auction proceeds (ETH) are automatically deposited in the treasury,
-                  to be split 50/50 between the Nouncil and BLOCKS DAO.
+                  distribution mechanism, auctioning one NounsTowner every 6 hours, forever. 100% of
+                  auction proceeds (ETH) are automatically deposited in the treasury.
                 </Trans>
               </p>
 
               <p className={classes.aboutText}>
                   Each time an auction is settled, the settlement transaction will also cause a new
-                  NounsTown PFD to be minted and a new 6 hour auction to begin.{' '}
+                  NounsTowner to be minted and a new 6 hour auction to begin.{' '}
               </p>
               <p>
                   While settlement is most heavily incentivized for the winning bidder, it can be
-                  triggered by anyone, allowing the system to trustlessly auction NounsTown PFDs as long as
+                  triggered by anyone, allowing the system to trustlessly auction NounsTowners as long as
                   Ethereum is operational and there are interested bidders.
               </p>
             </Accordion.Body>
@@ -177,37 +123,26 @@ const Documentation = () => {
 	              <br />
 	            
 	            <h3>Settlement</h3>
-	              When an auction ends, a gas-only transaction is required to mint the current NounsTown PFD
+	              When an auction ends, a gas-only transaction is required to mint the current NounsTowner
 	              to the winner's wallet and start the next auction. Anyone can settle an auction. As gas
 	              price fluctuates, the cost of settlement also fluctuates.
 	              <br />
 	              <br />
 	              Settlement gas price of every 15th auction is higher. This is due to the transaction
-	              also triggering the Nouncil reward mint.
-            </Accordion.Body>
-          </Accordion.Item>
-
-          <Accordion.Item eventKey="4" className={classes.accordionItem}>
-            <Accordion.Header className={classes.accordionHeader}>
-              <Trans>Nouncil</Trans>
-            </Accordion.Header>
-            <Accordion.Body>
-                Nouncil is a special council of Nounish BUIDLers and NFT community leaders that seek to extend the Nouns DAO universe. 
-                The goal of the Nouncil is to work together within the framework of Nouns DAO, using the Nouns that have been generously delegated to the Nouncil, to be a voice for the nounish states and do their part to proliferate CC0 and Nounish culture.
-                Learn more about the {nouncilLink}.
+	              also triggering the Founders reward mint.
             </Accordion.Body>
           </Accordion.Item>
 
           <Accordion.Item eventKey="5" className={classes.accordionItem}>
             <Accordion.Header className={classes.accordionHeader}>
-              <Trans>PFD Traits</Trans>
+              <Trans>Traits</Trans>
             </Accordion.Header>
             <Accordion.Body>
               <p>
                 <Trans>
-                  NounsTown PFDs are based on the core Nouns traits, which are generated randomly based on Ethereum block hashes. 
-                  PFDs also have additional personality traits called nature. 
-                  As of this writing, NounsTown PDFs are made up of:
+                  NounsTowners are based on the core Nouns traits, which are generated randomly based on Ethereum block hashes. 
+                  They also have additional personality traits called nature. 
+                  As of this writing, NounsTowners are made up of:
                 </Trans>
               </p>
               <ul>
@@ -230,7 +165,7 @@ const Documentation = () => {
                   <Trans>Nature (6): Brave, Impish, Jolly, Quirky, Sassy, Timid</Trans>
                 </li>
               </ul>
-                You can experiment with off-chain PFD generation at the {playgroundLink}.
+                You can experiment with off-chain NounsTowner generation at the {playgroundLink}.
             </Accordion.Body>
           </Accordion.Item>
 
@@ -241,8 +176,8 @@ const Documentation = () => {
             <Accordion.Body>
               <p>
                 <Trans>
-                  NounsTown PFDs are stored directly on Ethereum and do not utilize pointers to other
-                  networks such as IPFS. This is possible because PFD parts are compressed and
+                  NounsTowners are stored directly on Ethereum and do not utilize pointers to other
+                  networks such as IPFS. This is possible because the parts are compressed and
                   stored on-chain using a custom run-length encoding (RLE), which is a form of
                   lossless compression.
                 </Trans>
@@ -262,15 +197,15 @@ const Documentation = () => {
 
           <Accordion.Item eventKey="7" className={classes.accordionItem}>
             <Accordion.Header className={classes.accordionHeader}>
-              <Trans>NounsTown Seeder Contract</Trans>
+              <Trans>Seeder Contract</Trans>
             </Accordion.Header>
             <Accordion.Body>
               <p>
                 <Trans>
-                  The NounsTown Seeder contract is used to determine PFD traits during the minting
+                  The NounsTown Seeder contract is used to determine traits during the minting
                   process. The seeder contract can be replaced to allow for future trait generation
                   algorithm upgrades. Additionally, it can be locked to prevent any
-                  future updates. Currently, PFD traits are determined using pseudo-random number
+                  future updates. Currently, traits are determined using pseudo-random number
                   generation:
                 </Trans>
               </p>
@@ -279,7 +214,7 @@ const Documentation = () => {
               <br />
               <p>
                 <Trans>
-                  Trait generation is not truly random. Traits can be predicted when minting a PFD
+                  Trait generation is not truly random. Traits can be predicted when minting a NounsTowner
                   on the pending block.
                 </Trans>
               </p>
