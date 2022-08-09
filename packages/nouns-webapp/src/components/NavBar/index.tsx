@@ -89,7 +89,7 @@ const NavBar = () => {
                 buttonStyle={nonWalletButtonStyle}
               />
             </Nav.Link>
-            <Nav.Link as={Link} to="/tracker" className={classes.nounsNavLink}>
+            <Nav.Link href={"https://auctions.wtf"} className={classes.nounsNavLink} target="_blank" >
               <NavBarButton
                 buttonText={<Trans>Tracker</Trans>}
                 buttonIcon={<FontAwesomeIcon icon={faCrosshairs} />}

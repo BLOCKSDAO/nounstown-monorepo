@@ -59,7 +59,7 @@ function App() {
               path="/block/:id"
               render={props => <AuctionPage initialAuctionId={Number(props.match.params.id)} />}
             />
-            <Route exact path="/tracker" component={TrackerPage} />
+            <Route exact path="/x-tracker" component={TrackerPage} />
             <Route exact path="/tester" component={TrackerTesterPage} />
             <Route exact path="/nounders" component={NoundersPage} />
             <Route exact path="/x-nounies" component={NouniesPage} />
