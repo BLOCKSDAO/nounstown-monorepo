@@ -78,7 +78,7 @@ const NavBar = () => {
               />
             </Nav.Link>
             <Nav.Link
-              href={'http://discord.gg/nouns'}
+              href={'http://discord.gg/QThZm7uxtn'}
               className={classes.nounsNavLink}
               target="_blank"
               rel="noreferrer"

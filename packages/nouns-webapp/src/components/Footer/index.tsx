@@ -8,7 +8,7 @@ import { Trans } from '@lingui/macro';
 
 const Footer = () => {
   const twitterURL = externalURL(ExternalURL.twitter);
-  const discordURL = externalURL(ExternalURL.discord);
+  const discordURL = 'http://discord.gg/QThZm7uxtn';
   const etherscanURL = buildEtherscanAddressLink(config.addresses.nounsToken);
   //const discourseURL = externalURL(ExternalURL.discourse);
   

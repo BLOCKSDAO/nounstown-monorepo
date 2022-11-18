@@ -12,11 +12,13 @@ const Banner = () => {
       <Col lg={6}>
         <div className={classes.wrapper}>
           <h1>
-            <Trans>FOUR NOUNSTOWNERS,</Trans>
+          	<a href="https://twitter.com/NounsTown/status/1593647648795287552?s=20&t=8FAOR9GxnW14_Q1L0aDWiQ" style={{textDecoration: 'none', color: 'inherit'}}>
+            <Trans>NOUNSTOWN</Trans>
             <br />
-            <Trans>EVERY DAY,</Trans>
+            <Trans>IS NOW</Trans>
             <br />
-            <Trans>FOREVER.</Trans>
+            <Trans>ON ROVE!</Trans>
+            </a>
           </h1>
         </div>
       </Col>
