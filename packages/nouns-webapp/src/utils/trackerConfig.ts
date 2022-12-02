@@ -34,6 +34,8 @@ export const trackerConfig = [
     uri: 'http://composables.wtf/',
     tokenAddress: '0xd6f748f54CC179201fc9747D2427f1b0C1D13581',
     auctionHouseProxyAddress: '0x11Aba4cf2fdEbd6F8Ca65A106dF758B61a196687',
+    descriptorAddress: '0x0d5d8E1FED2B2c4768671ebebc3b601d28023026',
+    seederAddress: '0xcc8a0fb5ab3c7132c1b2a0109142fb112c4ce515',
     subgraphApiUri: 'https://api.thegraph.com/subgraphs/name/composablesdao/mainnet',
     description: 'Composables',
     handle: 'Composables_',
