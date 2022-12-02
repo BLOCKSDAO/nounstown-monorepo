@@ -30,6 +30,16 @@ export const trackerConfig = [
     backgroundColor: '#eed8ab'
   },
   {
+    name: 'Composables',
+    uri: 'http://composables.wtf/',
+    tokenAddress: '0xd6f748f54CC179201fc9747D2427f1b0C1D13581',
+    auctionHouseProxyAddress: '0x11Aba4cf2fdEbd6F8Ca65A106dF758B61a196687',
+    subgraphApiUri: 'https://api.thegraph.com/subgraphs/name/composablesdao/mainnet',
+    description: 'Composables',
+    handle: 'Composables_',
+    backgroundColor: ''
+  },
+  {
     name: 'NounsTown',
     uri: 'https://nounstown.wtf/',
     tokenAddress: '0xb632fD44053B09bddDaF92dE2C212bB12Ce8DbDF',
