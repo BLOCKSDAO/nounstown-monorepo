@@ -1,14 +1,16 @@
 import config from '../config';
 import { Contract, providers, utils } from 'ethers';
-import { NounsTokenABI, NounsSeederABI, NounsDescriptorABI } from '@nouns/contracts';
+import { NounsTokenABI, NounsSeederABI/*, NounsDescriptorABI*/ } from '@nouns/contracts';
 import { NounsAuctionHouseABI } from '@nouns/sdk';
 import { request, gql } from 'graphql-request'
 import { TokenMetadata, GraphAuction, ContractAuction } from './trackerTypes';
 import NounsFrensAuctionHouseABI from '../libs/abi/NounsFrensAuctionHouse.json';
+import NounsComposableDescriptorABI from '../libs/abi/NounsComposableDescriptor.json';
 import BigNumber from 'bignumber.js';
 
 const auctionHouseABI = new utils.Interface(NounsAuctionHouseABI);
 const nounsFrensAuctionHouseABI = new utils.Interface(NounsFrensAuctionHouseABI);
+const nounsComposableDescriptorABI = new utils.Interface(NounsComposableDescriptorABI);
 
 /**
  * Get the latest auction data of a Noun
@@ -119,7 +121,7 @@ export async function getNextNounSVGBuffer(descriptorAddress: string, seederAddr
 	  	
 		const nounsDescriptorContract = new Contract(
 			descriptorAddress,
-			NounsDescriptorABI,
+			nounsComposableDescriptorABI,
 			jsonRpcProvider,
 	  	);
 
@@ -136,8 +138,8 @@ export async function getNextNounSVGBuffer(descriptorAddress: string, seederAddr
 		      blockTag: "pending"
 		    }		    
 		  );
-		  		  
-		const dataURI = await nounsDescriptorContract.generateSVGImage(seed);
+
+		const dataURI = await nounsDescriptorContract.generateSVGImage(tokenId.toString(), seed);
 		return Buffer.from(dataURI, 'base64');
 		
  		//return atob(svg);
